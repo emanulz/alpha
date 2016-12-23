@@ -1,0 +1,135 @@
+
+|{% extends "layout/base_layout.html" %}
+
+| {% load i18n static %}
+
+| {% block extrastyle %}
+|   <link rel="stylesheet" type="text/css" href="{% static "vendor/side-panel/css/style.css" %}" />
+|   <link rel="stylesheet" type="text/css" href="{% static "sales/poss/css/index.css" %}" />
+| {% endblock %}
+
+|{% block breadcrumbs %}
+|<div class="breadcrumbs col-xs-12">
+|<a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <span>Punto de Venta</span>
+|<div id="user-tools" class="pull-right" style="margin-right: 50px;">
+|       {% block welcome-msg %}
+|        {% trans 'Welcome,' %}
+|        <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+|        {% endblock %}
+|        {% block userlinks %}
+|        {% if user.has_usable_password %}
+|        <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+|        {% endif %}
+|        <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+|        {% endblock %}
+|    </div>
+|</div>
+|{% endblock %}
+
+| {% block content %}
+
+.row(style="margin-top:5px").blur-div
+    .col-xs-12.col-sm-8.col-md-8.col-lg-8(style="padding:0")
+
+        div.bg-white.left-item.form-group
+            span: b Producto:
+            div.inner-addon.right-addon
+                i.fa.fa-barcode(style="padding-right:30px")
+                button.btn.btn-success.product-search-btn(style="height:48px; width:48px; "): span: i.fa.fa-search(style="padding-bottom:8px")
+                input(type="text" placeholder="Ingrese el Código del Producto").form-control.product_code_field.mousetrap
+
+        div.bg-white.left-item.product-table(style="margin-top:10px")
+            table.table
+                thead: tr
+                    th Cód
+                    th Art
+                    th(style='width:10%') Can
+                    th P.Un
+                    th Des%
+                    th IV
+                    th Sub
+                    th
+                tbody.table-body
+                    //|{% for i in "xxxxxxxxxxxxxxxx" %}
+                    //tr
+                    //    td 1001
+                    //    td Arroz Luisiana kilogramo 99%
+                    //    td 10
+                    //    td 1730.85
+                    //    td(style="padding:0;width:6%"): input(type="number" style="width:95%; height:100%; padding:0; border:0px;")
+                    //    td 13%
+                    //    td 17308.5
+                    //    td(style="text-aling:center"): span.fa.fa-trash
+                    //|{% endfor %}
+
+
+    .col-xs-12.col-sm-4.col-md-4.col-lg-4.side-div(style="padding:0")
+        div.col-xs-12(style="padding:0")
+            div.bg-white.right-item(style="height:160px; padding-bottom:0; margin-bottom:0")
+                span: b Datos del Cliente:&nbsp&nbsp&nbsp
+                    span: i.fa.fa-edit.btn-client-search
+                br
+                br
+                div
+                    .col-xs-2(style="padding:0")
+                        img.avatar.btn-client-search(src='/static/img/profile.jpg')
+                    .col-xs-10(style="padding:0")
+                        span: b Código :&nbsp
+                        input.client_code_field(type='text' style='width:100px')
+                        i.fa.fa-street-view(style='margin-left:5px')
+                        br
+                        span: b Nombre :&nbsp
+                        span.client-name-span Cliente de Contado
+                        br
+                        span: b Crédito &nbsp :&nbsp
+                        span: i
+                                span.client-credit-span.has-credit-icon.fa.fa-times-circle
+                                //span.not-credit-icon.fa.fa-times-circle
+
+                        br
+                        span: b Balance &nbsp:&nbsp
+                        span.debt-amount-span.credit-status.credit-positive ₡ 0
+
+        div.col-xs-12(style="padding:0")
+            div.bg-white.right-item(style='padding-top:0; margin-top:0')
+                span: b Totales:
+                br
+                br
+                table.table.table-totals
+                    tbody
+                        tr: th Descuento %
+                            td(class='sale_global_discount', style="padding:0"): input.sale_global_discount_input(type="number" style="width:50%;height:100%; padding:0 0 0 10px; border:0px;")
+                        tr: th Sub-Total:
+                            td(class='price sale_subtotal') ₡ 0
+                        tr: th IV:
+                            td(class='price sale_iv_amount') ₡ 0.00
+
+                span: b Total:
+                    br
+                div
+                    h1.sale-total-div: span.sale_total.price ₡0
+
+        div.col-xs-12(style="padding:0;")
+            div.bg-white.right-item
+                span: b Pago:
+                    br
+                div.btns
+                    button.btn.btn-default.btn-confirm(style="height:48px; width:49%; margin-top:10px ") Confirmar&nbsp&nbsp
+                        span: i.fa.fa-rotate-right(style="padding-bottom:8px")
+                    button.btn.btn-default.btn-pay(style="height:48px; width:49%; margin-top:10px ") Pagar&nbsp&nbsp
+                        span: i.fa.fa-credit-card(style="padding-bottom:8px")
+
+
+include ./side-search-product.jade
+include ./side-search-client.jade
+include ./side-pay.jade
+
+| {% endblock %}
+
+| {% block extrajs %}
+|   <script src="{% static 'sales/poss/app.js' %}"></script>
+|   <script type="text/javascript">
+|       alertify.defaults.theme.ok = "btn btn-success";
+|       alertify.defaults.theme.cancel = "ui black button";
+|   </script>
+| {% endblock %}

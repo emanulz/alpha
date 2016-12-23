@@ -1,0 +1,35 @@
+.cd-panel.cd-panel-search-product.from-left
+    header.cd-panel-header
+        h1 Búsqueda de Producto
+
+    .cd-panel-container
+        .cd-panel-content
+            .form-group
+                form.col-xs-11.form-horizontal(action="")
+                    //.form-group
+                    //    .col-sm-12
+                    //        label(for="tipobusqueda") Tipo de búsqueda:
+                    //    .col-sm-9
+                    //        select.form-control.input-lg#tipobusqueda(name="" )
+                    //            option(value="1") Descripción
+                    .form-group
+                        .col-xs-12
+                            label(for="busqueda") Búsqueda:
+                        .col-xs-7.col-sm-8
+                            input(type="text" style="width:100%").form-control#busqueda
+                        .col-xs-2
+                            button(type="button").btn.btn-success.form-control.marginBtnAdd2#btnbusqueda(style="height: 48px; width:48px")
+                                span.fa.fa-search
+
+                form.col-sm-11.form-horizontal(action="")
+                    .form-group
+                        .col-sm-12
+                            table.table.table-bordered.table-hover#tablabusqueda
+                                thead
+                                    tr
+                                        th Código
+                                        th Descripción
+                                        th Inventario
+                                        th Precio
+                                        th
+                                tbody.table-body-product-search

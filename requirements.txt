@@ -1,0 +1,15 @@
+backports-abc==0.5
+beautifulsoup4==4.5.1
+certifi==2016.9.26
+chromelogger==0.4.3
+Django==1.10.4
+django-filter==1.0.1
+django-livereload-server==0.2.3
+django-widget-tweaks==1.4.1
+djangorestframework==3.5.3
+jsonpickle==0.9.3
+Pillow==3.4.2
+pyjade==4.0.0
+singledispatch==3.4.0.3
+six==1.10.0
+tornado==4.4.2

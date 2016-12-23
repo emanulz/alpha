@@ -1,0 +1,30 @@
+.cd-panel.cd-panel-search-client.from-right
+    header.cd-panel-header
+        h1 Búsqueda de Cliente
+
+    .cd-panel-container
+        .cd-panel-content
+            .form-group
+                form.col-sm-12.form-horizontal(action="")
+                    .form-group
+                        .col-xs-12
+                            label(for="client-search-input") Búsqueda por Nombre:
+                        .col-xs-7.col-sm-8
+                            input(type="text" style="width:100%").form-control#client-search-input
+                        .col-xs-2
+                            button(type="button").btn.btn-success.form-control.marginBtnAdd2#client-search-btn(style="height: 48px; width:48px")
+                                span.fa.fa-search
+
+                form.col-sm-11.form-horizontal(action="")
+                    .form-group
+                        .col-sm-12
+                            table.table.table-bordered.table-hover#cliente-search-table
+                                thead
+                                    tr
+                                        th Código
+                                        th Nombre
+                                        th Crédito
+                                        th Saldo
+                                        th
+                                tbody.client-search-table-body
+

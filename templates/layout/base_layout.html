@@ -1,0 +1,114 @@
+{% load i18n admin_static %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="description" content="CoopeVirtual APP">
+    <meta name="author" content="Emanuel Zuniga Infante">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    {% block title %}
+        <title>POS</title>
+    {% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "layout/app.css" %}" />
+
+    {% block extrastyle %}{% endblock %}
+</head>
+<body>
+
+<nav canvas="" style="text-align: center">
+    <div>
+        <div class="float-left" style="margin:20px 0 0 40px">
+            <span class="button js-toggle-main-menu"><i class="fa fa-bars"></i> <span class="text">Menu</span></span>
+        </div>
+    {% if user.profile.company.logo %}
+        <a href="/"><img id="logo" src="/{{ user.profile.company.logo }}" alt="POS" style="margin-right: 12%; width: 200px;"></a>
+    {% else %}
+        <a href="/" id="nologo">{{ user.profile.company.commercial_name }}</a>
+    {% endif %}
+
+    </div>
+
+    {% block breadcrumbs %}
+        <div class="breadcrumbs col-xs-12">
+            <div id="user-tools" class="pull-right" style="margin-right: 50px;">
+                {% block welcome-msg %}
+                {% trans 'Welcome,' %}
+                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                {% endblock %}
+                {% block userlinks %}
+                {% if user.has_usable_password %}
+                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+                {% endif %}
+                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+</nav>
+
+
+
+<div class="container" canvas="container" >
+
+    <div class="container-wrapper" >
+            <span hidden id="company-id">{{ user.profile.company_id }}</span>
+
+            {% block messages %}
+            {% if messages %}
+                <ul class="messagelist">{% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                {% endfor %}</ul>
+            {% endif %}
+            {% endblock messages %}
+            <div id="page-content-wrapper">
+                {% block pretitle %}{% endblock %}
+                {% block content_title %}{% if title %}<h3 class="page_title">{{ title }}</h3>{% endif %}{% endblock %}
+                {% block content %}
+                {% block object-tools %}{% endblock %}
+                {{ content }}
+
+                {% endblock %}
+                {% block sidebar %}{% endblock %}
+                <br class="clear" />
+            </div>
+	</div>
+
+</div>
+
+{% block footer %}
+
+{% endblock %}
+
+
+<div off-canvas="main-menu left reveal">
+    {% if user.profile.company.logo %}
+	    <img id="logo-menu" src="/{{ user.profile.company.logo }}" alt="POS" style="width: 150px;">
+    {% else %}
+        <h3 style="margin: 20px" >{{ user.profile.company.commercial_name }}</h3>
+    {% endif %}
+
+    <ul class="menu small">
+		<li><a href="/"><span class="fa fa-home"></span> Inicio</a></li>
+		<li><a href="/pos/"><span class="fa fa-shopping-cart"></span> Punto de Venta</a></li>
+{#		<li><a href="/bill/create/" ><span class="fa fa-list"></span> Crear Factura</a></li>#}
+{#		<li><a href="/request/create/"><span class="fa fa-truck"></span> Crear Pedido</a></li>#}
+{#		<li><a href="/report/create/"><span class="fa fa-bar-chart"></span> Generar Reportes</a></li>#}
+		<li><a href="/admin/"><span class="fa fa-area-chart"></span> Sitio Administrador</a></li>
+        <li><a href="/admin/logout/"><span class="fa fa-power-off"></span> Cerrar sesión</a></li>
+
+	</ul>
+</div>
+
+
+
+{% block js %}
+
+{% endblock %}
+
+</body>
+
+</html>
