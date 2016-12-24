@@ -9476,10 +9476,14 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
     margin-bottom:0;
 }
 
+.messagelist{
+    padding-top: 5px;
+}
 
-
-
-
+.messagelist .alert{
+    padding-left: 40px;
+    padding-right: 40px;
+}
 
 /*
  * Start Bootstrap - Landing Page (http://startbootstrap.com/)

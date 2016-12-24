@@ -32,4 +32,3 @@ function mainCreateProduct() {
     save();
 
 }//MAIN FUNCTION
-

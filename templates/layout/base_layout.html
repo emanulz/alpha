@@ -59,9 +59,12 @@
 
             {% block messages %}
             {% if messages %}
-                <ul class="messagelist">{% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
-                {% endfor %}</ul>
+                <div class="messagelist">{% for message in messages %}
+                <div{% if message.tags %} class="alert alert-{{message.extra_tags}} alert-dissmissable"{% endif %}>
+                    {{ message|capfirst }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                {% endfor %}</div>
             {% endif %}
             {% endblock messages %}
             <div id="page-content-wrapper">

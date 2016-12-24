@@ -39,8 +39,6 @@ function initialDisables($sale){
     let $saleInputs = $sale.find('input');
     let $hasforsale = $sale.find('.hasforsale');
 
-    console.log('text');
-
     //Actions
     if(!$hasforsale[0].checked){
 

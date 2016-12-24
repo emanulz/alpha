@@ -1,13 +1,14 @@
+# -*- coding: utf-8 -*-
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.shortcuts import render
 from common.products.models import Product, ProductDepartment, ProductSubDepartment, ProductForSale
 from .forms import CreateSingleProductForm
-from common.companies.models import Company
 
-from django.http import Http404, HttpResponse, HttpResponseServerError, JsonResponse
+from django.http import Http404, HttpResponseServerError, JsonResponse
 from django.utils.translation import gettext as _
 from django.db import transaction
 import json
@@ -57,7 +58,8 @@ class ProductUpdate(UpdateView):
         return obj
 
     template_name = 'products/create.jade'
-    fields = ['company', 'code', 'description', 'department', 'subdepartment', 'useinventory',
+    fields = ['company', 'code', 'description', 'department', 'subdepartment',
+              'useinventory',
               'minimum', 'unit', 'cost', ]
     success_url = '/products/'
 
@@ -110,57 +112,68 @@ def product_create(request):
         return render(request, 'products/create.jade', context)
 
     if request.method == 'POST':
+
         form = CreateSingleProductForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            print(form.cleaned_data['useinventory'])
-            return HttpResponse(form.cleaned_data)
-        else:
+
+        if not form.is_valid():
             print(form.errors.as_json())
             return render(request, 'products/create.jade', {'form': form})
-    # if request.method == 'POST':
-    #
-    #     data = json.loads(request.body)
-    #
-    #     company = request.user.profile.company
-    #     code = data['code']
-    #     unit = data['unit']
-    #     description = data['description']
-    #     department = ProductDepartment.objects.get(pk=data['department'])
-    #     subdepartment = ProductSubDepartment.objects.get(pk=data['subdepartment'])
-    #     cost = data['cost']
-    #
-    #     barcode = data['barcode']
-    #     utility = data['utility']
-    #     price = data['price']
-    #     usetaxes = data['usetaxes']
-    #     taxes = data['taxes']
-    #     discount = data['discount']
-    #     sellprice = data['sellprice']
-    #
-    #     product = Product(company=company, code=code, unit=unit, description=description, department=department,
-    #                       subdepartment=subdepartment, cost=cost)
-    #
-    #     productforsale = ProductForSale(company=company, product=product, code=code, barcode=barcode, description=description,
-    #                                     department=department, subdepartment=subdepartment, unit=unit,
-    #                                     utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
-    #                                     discount=discount, sellprice=sellprice)
-    #     try:
-    #         with transaction.atomic():
-    #
-    #             product.save()
-    #
-    #             if data['isForSale']:
-    #
-    #                 productforsale.save()
-    #
-    #                 return JsonResponse({'product': product.id, 'productforsale': productforsale.id})
-    #
-    #             return JsonResponse({'product': product.id, 'productforsale': productforsale.id})
-    #
-    #     except Exception as e:
-    #         print e
-    #         return HttpResponseServerError(e)
+        else:
+
+            company = request.user.profile.company
+            code = form.cleaned_data['code']
+            unit = form.cleaned_data['unit']
+            description = form.cleaned_data['description']
+            department = form.cleaned_data['department']
+            subdepartment = form.cleaned_data['subdepartment']
+            cost = form.cleaned_data['cost']
+
+            barcode = form.cleaned_data['barcode']
+            utility = form.cleaned_data['utility']
+            price = form.cleaned_data['price']
+            usetaxes = form.cleaned_data['usetaxes']
+            taxes = form.cleaned_data['taxes']
+            discount = form.cleaned_data['discount']
+            sellprice = form.cleaned_data['sellprice']
+
+            useinventory = form.cleaned_data['useinventory']
+            minimum = 0
+
+            if useinventory:
+                minimum = form.cleaned_data['minimum']
+
+            product = Product(company=company, code=code, unit=unit, description=description, department=department,
+                              subdepartment=subdepartment, cost=cost, minimum=minimum, useinventory=useinventory)
+
+            productforsale = ProductForSale(company=company, product=product, code=code, barcode=barcode,
+                                            description=description, department=department, subdepartment=subdepartment,
+                                            unit=unit, utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
+                                            discount=discount, sellprice=sellprice)
+            try:
+                with transaction.atomic():
+
+                    product.save()
+
+                    if form.cleaned_data['hasforsale']:
+
+                        productforsale.save()
+
+                        messages.add_message(request, messages.INFO, 'Producto creado correctamente',
+                                             extra_tags="success")
+                        return render(request, 'products/create.jade', {'form': form})
+
+                    messages.add_message(request, messages.INFO, 'Producto creado correctamente', extra_tags="success")
+                    return render(request, 'products/create.jade', {'form': form})
+
+            except Exception as e:
+                if '.code' in str(e):
+                    form.add_error('code', 'El código debe ser único')
+                if '.barcode' in str(e):
+                    form.add_error('barcode', 'El código de barras debe ser único')
+
+                messages.add_message(request, messages.INFO, 'Error al crear el producto, por favor revise los campos' +
+                                     ' e intente de nuevo. ' + str(e), extra_tags="danger")
+                return render(request, 'products/create.jade', {'form': form})
 
 
 @login_required

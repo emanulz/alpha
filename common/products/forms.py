@@ -24,7 +24,7 @@ class CreateSingleProductForm(forms.Form):
     price = forms.DecimalField(min_value=0, required=False)
     usetaxes = forms.BooleanField(initial=False, required=False)
     taxes = forms.DecimalField(min_value=0, max_value=100, required=False)
-    discount = forms.DecimalField(min_value=0, initial=0, required=False)
+    discount = forms.DecimalField(min_value=0, max_value=99.99, initial=0, required=False)
     sellprice = forms.DecimalField(min_value=0, required=False)
 
     def __init__(self, *args, **kwargs):
