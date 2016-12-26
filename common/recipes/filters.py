@@ -2,25 +2,18 @@
 from __future__ import unicode_literals
 
 import django_filters
-from .models import Recipe, RecipeDetail, SubRecipe
+from .models import Recipe, RecipeDetail
 
 
 class RecipeFilter(django_filters.FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'productForSale', 'recipes')
+        fields = ('id', 'product', 'isComposed')
 
 
 class RecipeDetailFilter(django_filters.FilterSet):
 
     class Meta:
         model = RecipeDetail
-        fields = ('id', 'from_recipe', 'to_recipe', 'qty')
-
-
-class SubRecipeFilter(django_filters.FilterSet):
-
-    class Meta:
-        model = SubRecipe
-        fields = ('id', 'recipe', 'product', 'qty')
+        fields = ('id', 'product', 'qty', 'recipe')

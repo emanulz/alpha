@@ -132,29 +132,41 @@
 
             //-----------------------------------------------------------------------------
             //inventory div
-            .form-group.col-xs-12.col-sm-6.col-lg-4.block.inventory-block
-                .col-xs-10.no-padding-right
-                    .col-xs-5.col-sm-5.col-lg-4.no-padding-left
-                        span.title Inventarios:
-                    .col-xs-2
-                        //input(type='checkbox').useinventory.field.left-checkbox
-                        | {{form.useinventory | add_class:"useinventory sale field form-control left-checkbox"}}
-                .col-xs-10.no-padding-right
-                    hr.intro-dividertitle
-                .col-xs-6
-                    label Inventario Inicial:
-                    //input(type='number' style='width:70%').inventory.field.form-control.input-sm
-                    | {{form.inventory | add_class:"inventory sale field form-control input-sm" | add_error_class:"error-field hasTooltip"}}
-                    .hidden
-                        | {{ form.inventory.errors}}
-                .col-xs-6
-                    label Mínimo Inventario:
-                    //input(type='number').minimum.field.form-control.input-sm
-                    | {{form.minimum | add_class:"minimum sale field form-control input-sm" | add_error_class:"error-field hasTooltip"}}
-                    .hidden
-                        | {{ form.minimum.errors}}
-
-
+            .form-group.col-xs-12.col-sm-12.col-lg-4
+                .col-xs-12.col-sm-6.col-lg-12.no-padding-left.block.inventory-block
+                    
+                    .col-xs-10.no-padding-right
+                        .col-xs-5.col-sm-5.col-lg-4.no-padding-left
+                            span.title Inventarios:
+                        .col-xs-2
+                            | {{form.useinventory | add_class:"useinventory inventory field form-control left-checkbox"}}
+                    .col-xs-10.no-padding-right
+                        hr.intro-dividertitle
+                    .col-xs-6
+                        label Inventario Inicial:
+                        //input(type='number' style='width:70%').inventory.field.form-control.input-sm
+                        | {{form.inventory | add_class:"inventory sale field form-control input-sm" | add_error_class:"error-field hasTooltip"}}
+                        .hidden
+                            | {{ form.inventory.errors}}
+                    .col-xs-6
+                        label Mínimo Inventario:
+                        //input(type='number').minimum.field.form-control.input-sm
+                        | {{form.minimum | add_class:"minimum sale field form-control input-sm" | add_error_class:"error-field hasTooltip"}}
+                        .hidden
+                            | {{ form.minimum.errors}}
+                
+                .col-xs-12.col-sm-6.col-lg-12.composed
+                    .col-xs-10.no-padding-right
+                        .col-xs-5.col-sm-5.col-lg-4.no-padding-left
+                            span.title Compuesto:
+                        .col-xs-2
+                            | {{form.isComposed | add_class:"isComposed inventory field form-control left-checkbox"}}
+                    .col-xs-10.no-padding-right
+                        hr.intro-dividertitle
+                    .col-xs-5.no-padding-right
+                        input(type='button', value='Componentes').form-control.btn-success.btn-recipe
+                        | {{ form.recipe.errors}}
+                        |{{form.recipe | add_class:"recipe" | attr:'hidden:true' }}
             //inventory div
             //-----------------------------------------------------------------------------
 

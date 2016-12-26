@@ -15,6 +15,7 @@ window.qtip = qtip;
 import {saleData} from './sale';
 import {generalData} from './general';
 import {inventoryData} from './inventory';
+import {composedData} from './composed';
 import {save} from './buttons';
 
 $(document).on('ready', mainCreateProduct );
@@ -28,6 +29,8 @@ function mainCreateProduct() {
     saleData();
 
     inventoryData();
+
+    composedData();
 
     save();
 

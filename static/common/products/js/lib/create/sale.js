@@ -9,7 +9,7 @@ export function saleData(){
     let $hasforsale = $sale.find('.hasforsale');
 
     //EVENTS
-    $hasforsale.change({$sale:$sale},hasforsale);
+    $hasforsale.change({$sale:$sale },hasforsale);
 
     initialDisables($sale);
 }
@@ -51,8 +51,5 @@ function initialDisables($sale){
 
     $saleInputs.attr("disabled", false);
     $hasforsale.attr("disabled", false);
-
-
-
 
 }

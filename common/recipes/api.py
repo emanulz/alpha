@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from rest_framework import serializers, viewsets
-from .models import Recipe, SubRecipe, RecipeDetail
-from .filters import RecipeFilter, SubRecipeFilter, RecipeDetailFilter
+from .models import Recipe, RecipeDetail
+from .filters import RecipeFilter, RecipeDetailFilter
 
 
 # API
@@ -12,7 +12,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'productForSale', 'recipes')
+        fields = ('id', 'product', 'isComposed')
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -27,7 +27,7 @@ class RecipeDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecipeDetail
-        fields = ('id', 'from_recipe', 'to_recipe', 'qty')
+        fields = ('id', 'product', 'qty', 'recipe')
 
 
 class RecipeDetailViewSet(viewsets.ModelViewSet):
@@ -36,18 +36,3 @@ class RecipeDetailViewSet(viewsets.ModelViewSet):
     queryset = RecipeDetail.objects.all()
     lookup_field = 'id'
     filter_class = RecipeDetailFilter
-
-
-class SubRecipeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = SubRecipe
-        fields = ('id', 'productForSale', 'recipes')
-
-
-class SubRecipeViewSet(viewsets.ModelViewSet):
-
-    serializer_class = SubRecipeSerializer
-    queryset = SubRecipe.objects.all()
-    lookup_field = 'id'
-    filter_class = SubRecipeFilter

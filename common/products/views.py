@@ -5,7 +5,8 @@ from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render
-from common.products.models import Product, ProductDepartment, ProductSubDepartment, ProductForSale
+from common.recipes.models import Recipe, RecipeDetail
+from .models import Product, ProductDepartment, ProductSubDepartment, ProductForSale
 from .forms import CreateSingleProductForm
 
 from django.http import Http404, HttpResponseServerError, JsonResponse
@@ -139,6 +140,9 @@ def product_create(request):
             useinventory = form.cleaned_data['useinventory']
             minimum = 0
 
+            isComposed = form.cleaned_data['isComposed']
+            recipe = form.cleaned_data['recipe']
+
             if useinventory:
                 minimum = form.cleaned_data['minimum']
 
@@ -158,9 +162,9 @@ def product_create(request):
 
                         productforsale.save()
 
-                        messages.add_message(request, messages.INFO, 'Producto creado correctamente',
-                                             extra_tags="success")
-                        return render(request, 'products/create.jade', {'form': form})
+                    if not isComposed:
+                        recipeObj = Recipe(product=product, isComposed=isComposed)
+                        recipeObj.save()
 
                     messages.add_message(request, messages.INFO, 'Producto creado correctamente', extra_tags="success")
                     return render(request, 'products/create.jade', {'form': form})

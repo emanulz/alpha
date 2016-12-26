@@ -27,6 +27,9 @@ class CreateSingleProductForm(forms.Form):
     discount = forms.DecimalField(min_value=0, max_value=99.99, initial=0, required=False)
     sellprice = forms.DecimalField(min_value=0, required=False)
 
+    isComposed = forms.BooleanField(required=False)
+    recipe = forms.CharField(required=False)
+
     def __init__(self, *args, **kwargs):
         super(CreateSingleProductForm, self).__init__(*args, **kwargs)
         for k, field in self.fields.items():
@@ -53,6 +56,13 @@ class CreateSingleProductForm(forms.Form):
 
         usetaxes = cleaned_data.get("usetaxes")
         taxes = cleaned_data.get("taxes")
+
+        isComposed = cleaned_data.get("isComposed")
+        recipe = cleaned_data.get("recipe")
+
+        if isComposed:
+            if not recipe:
+                self.add_error('recipe', "Obligatorio")
 
         if useinventory:
             # Only do something if both fields are valid so far.

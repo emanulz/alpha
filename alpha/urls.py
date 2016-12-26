@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 
 from django.conf.urls import include, url
 from django.contrib import admin
@@ -34,12 +34,10 @@ from accounting.saleBills.api import SaleBillViewSet, SaleBillDetailViewSet
 from common.clients.api import ClientViewSet
 from common.companies.api import CompanyViewSet
 from common.currencies.api import CurrencyViewSet
-from common.recipes.api import RecipeViewSet, SubRecipeViewSet, RecipeDetailViewSet
+from common.recipes.api import RecipeViewSet, RecipeDetailViewSet
 from common.products.api import ProductViewSet, ProductDepartmentViewSet, ProductSubDepartmentViewSet, \
      ProductForSaleViewSet
 from common.profiles.api import ProfileViewSet, UserViewSet
-
-from common.products.views import ProductCreate
 
 
 router = routers.DefaultRouter()
@@ -58,7 +56,6 @@ router.register(r'companies', CompanyViewSet)
 router.register(r'currencies', CurrencyViewSet)
 router.register(r'recipes', RecipeViewSet)
 router.register(r'recipedetails', RecipeDetailViewSet)
-router.register(r'subrecipe', SubRecipeViewSet)
 router.register(r'products', ProductViewSet)
 router.register(r'productsforsale', ProductForSaleViewSet)
 router.register(r'product_departments', ProductDepartmentViewSet)
