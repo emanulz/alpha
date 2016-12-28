@@ -1,0 +1,68 @@
+|{% extends "layout/base_layout.html" %}
+
+| {% load i18n static %}
+
+| {% block extrastyle %}
+|   <link rel="stylesheet" type="text/css" href="{% static "vendor/dynaTables/css/jquery.dynatable.css" %}" />
+| {% endblock %}
+
+|{% block title %}
+<title>Clientes</title>
+|{% endblock %}
+
+|{% block breadcrumbs %}
+|<div class="breadcrumbs col-xs-12" style="height: 40px;">
+|<a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <span class='current-text'>Clientes</span>
+|<div id="user-tools" class="pull-right" style="margin-right: 50px;">
+|       {% block welcome-msg %}
+|        {% trans 'Welcome,' %}
+|        <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+|        {% endblock %}
+|        {% block userlinks %}
+|        {% if user.has_usable_password %}
+|        <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+|        {% endif %}
+|        <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+|        {% endblock %}
+|    </div>
+|</div>
+|{% endblock %}
+
+| {% block content %}
+
+.row(style="margin-top:20px; padding-left:40px")
+
+    .col-xs-11.col-sm-11.col-md-11.col-lg-11
+        div.bg-white.left-item.form-group(style='margin:0 0 25px 0')
+            span: b Clientes:
+            span.pull-right
+                a.add-link(href='/clients/add/') Agregar Cliente &nbsp
+                    span.fa.fa-plus
+
+        div.bg-white.left-item.product-table(style="margin-top:10px")
+            table.table.list-table
+                thead: tr(style='background-color:#333333; color:white')
+                    th Código
+                    th Nombre
+                    th Apellidos
+                    th Identificación
+                    th Teléfono
+                    th Email
+                tbody.table-body.list-table-body
+                    |{% for client in clients %}
+                    tr
+                        td: a(href='/clients/{{client.code}}/') {{client.code}}
+                        td {{client.name}}
+                        td {{client.last_name}}
+                        td {{client.id_num}}
+                        td {{client.phone}}
+                        td {{client.email}}
+                    |{% endfor %}
+
+| {% endblock %}
+
+
+| {% block js %}
+| <script src="{% static 'public/js/products_main.js' %}"></script>
+| <script src="{% static 'vendor/dynaTables/js/jquery.dynatable.js' %}"></script>
+| {% endblock %}

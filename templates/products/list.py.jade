@@ -30,10 +30,10 @@
 
 | {% block content %}
 
-.row(style="margin-top:60px; padding-left:40px").blur-div
+.row(style="margin-top:20px; padding-left:40px")
 
     .col-xs-11.col-sm-11.col-md-11.col-lg-11
-        div.bg-white.left-item.form-group(style='margin:10px 0 25px 0')
+        div.bg-white.left-item.form-group(style='margin:0 0 25px 0')
             span: b Productos:
             span.pull-right
                 a.add-link(href='/products/add/') Agregar Producto &nbsp
@@ -41,7 +41,7 @@
 
         div.bg-white.left-item.product-table(style="margin-top:10px")
             table.table.list-table
-                thead: tr(style='background-color:#333333')
+                thead: tr(style='background-color:#333333; color:white')
                     th Código
                     th Descripción
                     th Cód de Barras
@@ -63,10 +63,8 @@
 
 | {% endblock %}
 
-| {% block extrajs %}
-|   <script src="{% static 'vendor/priceFormat/js/PriceFormat.js' %}"></script>
-|   <script src="{% static 'vendor/mousetrap/js/mousetrap.min.js' %}"></script>
-|   <script src="{% static 'vendor/dynaTables/js/jquery.dynatable.js' %}"></script>
-|   <script src="{% static 'common/products/js/list.js' %}"></script>
-| {% endblock %}
 
+| {% block js %}
+| <script src="{% static 'public/js/products_main.js' %}"></script>
+| <script src="{% static 'vendor/dynaTables/js/jquery.dynatable.js' %}"></script>
+| {% endblock %}

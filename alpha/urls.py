@@ -68,11 +68,11 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-
+    url(r'^clients/', include('common.clients.urls')),
     url(r'^products/', include('common.products.urls')),
 
     url(r'^pos/$', login_required(TemplateView.as_view(template_name="poss/sale.jade"))),
-    url(r'^$', login_required(TemplateView.as_view(template_name="layout/landing.jade"))),
+    url(r'^$', login_required(TemplateView.as_view(template_name="layout/landing.py.jade"))),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

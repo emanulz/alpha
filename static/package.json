@@ -15,7 +15,8 @@
     "jquery-tooltipster": "./vendor/tooltipster/dist/js/tooltipster.bundle.js",
     "qtip": "./vendor/qtip/qtip.min.js",
     "slidebars": "./node_modules/slidebars/dist/slidebars.min.js",
-    "controller": "./layout/js/controller.js"
+    "controller": "./layout/js/controller.js",
+    "dynatable":"./vendor/dynaTables/js/jquery.dynatable.js"
   },
   "dependencies": {
     "alertifyjs": "^1.8.0",

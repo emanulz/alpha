@@ -19,7 +19,7 @@ from django.core.exceptions import ObjectDoesNotExist
 class ProductCreate(CreateView):
 
     model = Product
-    template_name = 'products/create.jade'
+    template_name = 'products/create.py.jade'
     success_url = '/products/'
 
     def get_initial(self):
@@ -58,7 +58,7 @@ class ProductUpdate(UpdateView):
                           {'verbose_name': queryset.model._meta.verbose_name})
         return obj
 
-    template_name = 'products/create.jade'
+    template_name = 'products/create.py.jade'
     fields = ['company', 'code', 'description', 'department', 'subdepartment',
               'useinventory',
               'minimum', 'unit', 'cost', ]
@@ -96,102 +96,7 @@ class ProductDelete(DeleteView):
 
 
 @login_required
-def product_create(request):
-
-    if request.method == 'GET':
-
-        company = request.user.profile.company_id
-        departments = ProductDepartment.objects.filter(company=request.user.profile.company_id)
-        subdepartments = ProductSubDepartment.objects.filter(department__company=request.user.profile.company_id)
-
-        context = {'departments': departments,
-                   'subdepartments': subdepartments,
-                   'company': company,
-                   'form': CreateSingleProductForm
-                   }
-
-        return render(request, 'products/create.jade', context)
-
-    if request.method == 'POST':
-
-        form = CreateSingleProductForm(request.POST)
-
-        if not form.is_valid():
-            print(form.errors.as_json())
-            return render(request, 'products/create.jade', {'form': form})
-        else:
-
-            company = request.user.profile.company
-            code = form.cleaned_data['code']
-            unit = form.cleaned_data['unit']
-            description = form.cleaned_data['description']
-            department = form.cleaned_data['department']
-            subdepartment = form.cleaned_data['subdepartment']
-            cost = form.cleaned_data['cost']
-
-            barcode = form.cleaned_data['barcode']
-            utility = form.cleaned_data['utility']
-            price = form.cleaned_data['price']
-            usetaxes = form.cleaned_data['usetaxes']
-            taxes = form.cleaned_data['taxes']
-            discount = form.cleaned_data['discount']
-            sellprice = form.cleaned_data['sellprice']
-
-            useinventory = form.cleaned_data['useinventory']
-            minimum = 0
-
-            isComposed = form.cleaned_data['isComposed']
-            recipe = form.cleaned_data['recipe']
-
-            if useinventory:
-                minimum = form.cleaned_data['minimum']
-
-            product = Product(company=company, code=code, unit=unit, description=description, department=department,
-                              subdepartment=subdepartment, cost=cost, minimum=minimum, useinventory=useinventory)
-
-            productforsale = ProductForSale(company=company, product=product, code=code, barcode=barcode,
-                                            description=description, department=department, subdepartment=subdepartment,
-                                            unit=unit, utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
-                                            discount=discount, sellprice=sellprice)
-            try:
-                with transaction.atomic():
-
-                    product.save()
-
-                    if form.cleaned_data['hasforsale']:
-
-                        productforsale.save()
-
-                    if not isComposed:
-                        recipeObj = Recipe(product=product, isComposed=isComposed)
-                        recipeObj.save()
-
-                    messages.add_message(request, messages.INFO, 'Producto creado correctamente', extra_tags="success")
-                    return render(request, 'products/create.jade', {'form': form})
-
-            except Exception as e:
-                if '.code' in str(e):
-                    form.add_error('code', 'El código debe ser único')
-                if '.barcode' in str(e):
-                    form.add_error('barcode', 'El código de barras debe ser único')
-
-                messages.add_message(request, messages.INFO, 'Error al crear el producto, por favor revise los campos' +
-                                     ' e intente de nuevo. ' + str(e), extra_tags="danger")
-                return render(request, 'products/create.jade', {'form': form})
-
-
-@login_required
-def product_list(request):
-
-    company = request.user.profile.company_id
-
-    products = Product.objects.filter(company=company)
-
-    return render(request, 'products/list.jade', {'products': products})
-
-
-@login_required
-def product_update(request, pk):
+def product_update2(request, pk):
 
     if request.method == 'GET':
 
@@ -245,7 +150,6 @@ def product_update(request, pk):
 
         product = Product.objects.get(company=request.user.profile.company_id, code=pk)
 
-        product.company = company
         product.code = code
         product.unit = unit
         product.description = description

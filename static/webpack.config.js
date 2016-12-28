@@ -6,9 +6,11 @@ module.exports = {
   context: __dirname,
   devtool: debug ? "inline-sourcemap" : null,
   entry: {
-    layout: "./layout/js/index.js",
-    productCreate: "./common/products/js/lib/create/index.js",
-    pos: "./sales/poss/js/index.js",
+    layout_main: "./layout/js/index.js",
+    clients_addEdit: "./common/clients/js/addEdit/index.js",
+    products_main: "./common/products/js/lib/list/index.js",
+    products_addEdit: "./common/products/js/lib/create/index.js",
+    pos_main: "./sales/poss/js/index.js",
   },
   module:{
     loaders: [
@@ -23,6 +25,7 @@ module.exports = {
     ],
   },
   output: {
+
     path: __dirname + "/public/js/",
     filename: "[name].js"
   },
