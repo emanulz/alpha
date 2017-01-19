@@ -9,10 +9,10 @@ from .models import Company, CompanyEmail, CompanyPhoneNumber
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'commercial_name', 'company_name', 'contact', 'financial_id', 'financial_accounting_id',
+    list_display = ('id', 'commercial_name', 'company_name', 'financial_id', 'financial_accounting_id',
                     'slogan',)
 
-    search_fields = ('id', 'commercial_name', 'company_name', 'contact', 'financial_id', 'financial_accounting_id',
+    search_fields = ('id', 'commercial_name', 'company_name', 'financial_id', 'financial_accounting_id',
                      'phone_numbers', 'emails', 'slogan',)
 
     filter_horizontal = ('phone_numbers', 'emails')

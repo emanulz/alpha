@@ -9,5 +9,5 @@ class CompanyFilter(django_filters.FilterSet):
 
     class Meta:
         model = Company
-        fields = ('id', 'commercial_name', 'company_name', 'contact', 'financial_id', 'financial_accounting_id',
+        fields = ('id', 'commercial_name', 'company_name', 'financial_id', 'financial_accounting_id',
                   'phone_numbers', 'emails', 'slogan',)

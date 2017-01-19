@@ -8,7 +8,7 @@ from accounting.fiscalPeriods.models import FiscalPeriod
 from accounting.accounts.models import Account
 from common.clients.models import Client
 from common.companies.models import Company
-from common.currencies.models import Currency
+from general.models.currencies import Currency
 from common.suppliers.models import Supplier
 
 
@@ -56,4 +56,3 @@ class EntryDetail(models.Model):
         verbose_name = 'Detalle de Asiento'
         verbose_name_plural = 'Detalles de Asiento'
         ordering = ['id']
-

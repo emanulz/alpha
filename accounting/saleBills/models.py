@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from common.companies.models import Company
-from common.currencies.models import Currency
+from general.models.currencies import Currency
 from common.clients.models import Client
 
 

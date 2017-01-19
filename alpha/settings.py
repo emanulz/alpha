@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,20 +41,16 @@ INSTALLED_APPS = [
     'livereload',
     'widget_tweaks',
     'rest_framework',
-    'accounting.accounts',
-    'accounting.buyBills',
-    'accounting.entries',
-    'accounting.fiscalPeriods',
-    'accounting.saleBills',
-    'common.clients',
-    'common.companies',
-    'common.currencies',
-    'common.recipes',
-    'common.products',
-    'common.profiles',
-    'common.suppliers',  # todo preguntar sobre proveedores
-    'sales.poss',
-]
+    # 'accounting.accounts',
+    # 'accounting.buyBills',
+    # 'accounting.entries',
+    # 'accounting.fiscalPeriods',
+    # 'accounting.saleBills',
+    # 'common.clients',
+    # 'common.companies',
+    'general.apps.GeneralConfig',
+    'sales.apps.SalesConfig',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -106,6 +103,25 @@ DATABASES = {
     }
 }
 
+JET_SIDE_MENU_COMPACT = False
+
+JET_SIDE_MENU_CUSTOM_APPS = [
+    ('auth', [  # Each list element is a tuple with application name (app_label) and list of models
+        'User',
+        'Profile',
+        'Group',
+    ]),
+    ('general', [
+        'Contact',
+        'Company',
+        'Currency',
+    ]),
+    ('sales', [
+        'Product',
+        'Client',
+    ]),
+
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -133,7 +149,7 @@ REST_FRAMEWORK = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'es-MX'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'America/Costa_Rica'
 

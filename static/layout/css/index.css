@@ -127,14 +127,14 @@ label
     margin-top: 5px;
     margin-bottom: 5px;
 
-    border-top: 1px solid darkgoldenrod;
+    border-top: 1px solid #47bac1;
 }
 
 .title
 {
     font-size: 18px;
 
-    color: darkgoldenrod;
+    color: #47bac1;
 }
 
 /* line 39, ../sass/_typography.scss */
@@ -265,7 +265,7 @@ ul.unstyled
 {
     font-weight: 300;
 
-    background-color: #222;
+    background-color: #354052;
 }
 /* line 4, ../sass/_off-canvas.scss */
 [off-canvas] .padded-box
@@ -292,15 +292,15 @@ ul.unstyled
     -webkit-transition: all 200ms ease-in-out 0s;
             transition: all 200ms ease-in-out 0s;
 
-    color: rgba(255, 255, 255, .87);
+    color: #c0cad8;
     /*height: 20px;*/
     background-color: rgba(255, 255, 255, 0);
 }
 /* line 23, ../sass/_off-canvas.scss */
 [off-canvas] ul.menu li a:hover
 {
-    color: #ff3838;
-    background-color: rgba(255, 255, 255, .1);
+    color: white;
+    background-color: #2B3647;
 }
 
 /* line 33, ../sass/_off-canvas.scss */
@@ -459,7 +459,7 @@ nav[canvas]
     text-align: center;
 
     border-bottom: 1px solid rgba(0, 0, 0, .1);
-    background-color: #cacaca;
+    background-color: #2B3647;
 }
 /* line 13, ../sass/_nav.scss */
 nav[canvas] .button
@@ -505,7 +505,7 @@ nav[canvas] .button span.text
 
     margin-right: 12%;
 
-    color: #333;
+    color: white;
 }
 
 select
@@ -670,7 +670,7 @@ ol.breadcrumb li:last-child
     color: white;
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 4px;
-    background-color: dimgray;
+    background-color: #6F7E95;
 }
 /* line 11, ../sass/_buttons.scss */
 .button .fa
@@ -881,7 +881,7 @@ div.breadcrumbs
 
     color: #cacaca;
     border: none;
-    background: #333;
+    background: #354052;
 }
 
 div.breadcrumbs a
@@ -949,7 +949,7 @@ div.breadcrumbs a:hover
     height: 60px;
     margin-bottom: 0;
 
-    background-color: #cacaca;
+    background-color: #ECF2F6;
 }
 
 .messagelist
@@ -965,5 +965,34 @@ div.breadcrumbs a:hover
 
 .btn-recipe[disabled]
 {
-    background-color: rgba(75, 173, 75, .77);
+    background-color: #69c9ce;
+    border-color: #69c9ce;
+}
+
+.btn-recipe[disabled]:hover
+{
+    background-color: #69c9ce;
+    border-color: #69c9ce;
+}
+
+.btn-success{
+    background-color: #47BAC1;
+    border-color: #47BAC1;
+}
+
+.btn-success:hover{
+    background-color: #639AF5;
+    border-color:  #639AF5;
+}
+
+
+.btn-primary{
+    color: #6f7e95;
+    background-color: #BFCCD9;
+    border-color:  #BFCCD9;
+}
+
+.btn-primary:hover{
+    background-color: #639AF5;
+    border-color:  #639AF5;
 }

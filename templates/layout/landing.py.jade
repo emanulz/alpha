@@ -16,7 +16,7 @@
                     hr.intro-divider
                     ul.list-inline.intro-social-buttons
                         li: a.btn.btn-default.btn-lg.WidthHome(href="pos/"): span.network-name Punto de Venta
-                        li: a.btn.btn-default.btn-lg.WidthHome(href="products/"): span.network-name Productos
+                        li: a.btn.btn-default.btn-lg.WidthHome(href="admin/sales/product"): span.network-name Productos
                         li: a.btn.btn-default.btn-lg.WidthHome(href="clients/"): span.network-name Clientes
                     hr.intro-divider
 
@@ -25,5 +25,5 @@
 | {% endblock %}
 
 |{% block js %}
-<script src="{% static 'public/js/layout.js' %}"></script>
+<script src="{% static 'public/js/layout_main.js' %}"></script>
 |{% endblock %}
