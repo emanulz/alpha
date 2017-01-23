@@ -65,8 +65,6 @@ urlpatterns = [
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url(r'^clients/', include('common.clients.urls')),
     url(r'^sales/', include('sales.urls')),
-
-    # url(r'^pos/$', login_required(TemplateView.as_view(template_name="poss/sale.jade"))),
     url(r'^$', login_required(TemplateView.as_view(template_name="layout/landing.py.jade"))),
 
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\

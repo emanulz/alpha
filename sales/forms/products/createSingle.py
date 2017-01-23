@@ -75,11 +75,11 @@ class CreateSingleProductForm(forms.Form):
             # Only do something if both fields are valid so far.
             if not barcode:
                 self.add_error('barcode', "Obligatorio")
-            if not utility:
+            if not utility and utility != 0:
                 self.add_error('utility', "Obligatorio")
-            if not price:
+            if not price and price != 0:
                 self.add_error('price', "Obligatorio")
-            if not discount:
+            if not discount and discount != 0:
                 self.add_error('discount', "Obligatorio")
             if not sellprice:
                 self.add_error('sellprice', "Obligatorio")

@@ -2,7 +2,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from ...models.products import Product, ProductForSale
+from ...models.products import Product
+from ...models.recipies import Recipe, RecipeDetail
 from ...forms.products.createSingle import CreateSingleProductForm
 from django.db import transaction
 from django.http import Http404
@@ -21,12 +22,22 @@ def product_update(request, pk):
             product = Product.objects.get(company=request.user.profile.company_id, code=pk)
 
             form = CreateSingleProductForm(initial={'code': product.code,
+                                                    'barcode': product.barcode,
                                                     'unit': product.unit,
                                                     'description': product.description,
                                                     'department': product.department,
                                                     'subdepartment': product.subdepartment,
                                                     'cost': product.cost,
-                                                    'hasforsale': product.hasforsale
+                                                    'hasforsale': product.hasforsale,
+                                                    'utility': product.utility,
+                                                    'price': product.price,
+                                                    'usetaxes': product.usetaxes,
+                                                    'taxes': product.taxes,
+                                                    'discount': product.discount,
+                                                    'sellprice': product.sellprice,
+                                                    'minimum': product.minimum,
+                                                    'useinventory': product.useinventory,
+                                                    'isComposed': product.iscomposed,
                                                     })
 
             context = {'company': company,
@@ -68,7 +79,7 @@ def product_update(request, pk):
             minimum = 0
 
             isComposed = form.cleaned_data['isComposed']
-            recipe = form.cleaned_data['recipe']
+            recipeDetail = form.cleaned_data['recipe']
 
             if useinventory:
                 minimum = form.cleaned_data['minimum']
@@ -76,6 +87,7 @@ def product_update(request, pk):
             product = Product.objects.get(company=request.user.profile.company_id, code=pk)
 
             product.code = code
+            product.barcode = barcode
             product.unit = unit
             product.description = description
             product.department = department
@@ -83,63 +95,41 @@ def product_update(request, pk):
             product.cost = cost
             product.minimum = minimum
             product.hasforsale = hasforsale
-
-            if form.cleaned_data['hasforsale']:
-
-                try:
-
-                    productforsale = ProductForSale.objects.get(company=request.user.profile.company_id, code=pk)
-
-                    productforsale.company = company
-                    productforsale.product = product
-                    productforsale.code = code
-                    productforsale.barcode = barcode
-                    productforsale.description = description
-                    productforsale.department = department
-                    productforsale.subdepartment = subdepartment
-                    productforsale.unit = unit
-                    productforsale.utility = utility
-                    productforsale.price = price
-                    productforsale.usetaxes = usetaxes
-                    productforsale.taxes = taxes
-                    productforsale.discount = discount
-                    productforsale.sellprice = sellprice
-
-                except ObjectDoesNotExist:
-
-                    productforsale = ProductForSale(company=company, product=product, code=code, barcode=barcode,
-                                                    description=description,
-                                                    department=department, subdepartment=subdepartment, unit=unit,
-                                                    utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
-                                                    discount=discount, sellprice=sellprice)
+            product.utility = utility
+            product.price = price
+            product.usetaxes = usetaxes
+            if usetaxes:
+                product.taxes = taxes
+            else:
+                product.taxes = 0
+            product.discount = discount
+            product.sellprice = sellprice
 
             try:
                 with transaction.atomic():
 
                     product.save()
 
-                    if form.cleaned_data['hasforsale']:
-                        productforsale.save()
-
-                    if not isComposed:
+                    if isComposed:
                         try:
-                            recipeObj = Recipe.objects.get(product=product)
-                            recipeObj.product = product
-                            recipeObj.save()
+                            recipe = Recipe.objects.get(company=company, product=product)
+                            recipe.company = company
+                            recipe.product = product
+                            recipe.save()
 
                         except ObjectDoesNotExist:
-                            recipeObj = Recipe(product=product, isComposed=isComposed)
-                            recipeObj.save()
+                            recipe = Recipe(company=company, product=product)
+                            recipe.save()
 
                     if 'btn-continue' in request.POST:
                         messages.add_message(request, messages.INFO, 'Producto actualizado correctamente',
                                              extra_tags="success")
-                        return render(request, 'products/create.py.jade', {'form': form})
+                        return render(request, 'sales/products/create.py.jade', {'form': form})
 
                     if 'btn-save' in request.POST:
                         messages.add_message(request, messages.INFO, 'Producto actualizado correctamente',
                                              extra_tags="success")
-                        return redirect('/products/')
+                        return redirect('/admin/sales/product/')
 
             except Exception as e:
                 if '.code' in str(e):
@@ -149,4 +139,4 @@ def product_update(request, pk):
 
                 messages.add_message(request, messages.INFO, 'Error al crear el producto, por favor revise los campos' +
                                      ' e intente de nuevo. ' + str(e), extra_tags="danger")
-                return render(request, 'products/create.py.jade', {'form': form})
+                return render(request, 'sales/products/create.py.jade', {'form': form})

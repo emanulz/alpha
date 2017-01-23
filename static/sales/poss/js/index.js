@@ -1,10 +1,16 @@
 /**
  * Created by emanuelziga on 14/12/16.
  */
+
+var $ = require('jquery');
+var jQuery = require('jquery');
+
+window.$ = $;
+window.jQuery = jQuery;
+
 var priceFormat = require('priceFormat');
 var mouseTrap = require('mouseTrap');
 var alertify = require('alertifyjs');
-var $ = require('jquery');
 
 window.alertify = alertify;
 import {browserObjectEvents} from "./lib/browserEvents";

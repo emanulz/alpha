@@ -44,7 +44,7 @@
 }
 
 th {
-    background-color: #333333;
+    background-color: #354052;
     color: white;
     font-weight: normal;
 }
@@ -133,9 +133,10 @@ th {
 }
 
 .sale-total-div{
-    background-color: #5cb85c;
+    background-color: #47BAC1;
     color: white;
     padding: 10px;
+    margin: 0;
     text-align: center;
     font-weight: 500;
     font-size: 32px;

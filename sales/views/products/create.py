@@ -3,8 +3,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect
-# from common.recipes.models import Recipe, RecipeDetail
-from ...models.products import Product, ProductDepartment, ProductSubDepartment, ProductForSale
+from ...models.recipies import Recipe, RecipeDetail
+from ...models.products import Product, ProductDepartment, ProductSubDepartment
 from ...forms.products.createSingle import CreateSingleProductForm
 from django.db import transaction
 
@@ -54,32 +54,34 @@ def product_create(request):
             minimum = 0
 
             isComposed = form.cleaned_data['isComposed']
-            # recipe = form.cleaned_data['recipe']
+            hasforsale = form.cleaned_data['hasforsale']
+            recipeDetail = form.cleaned_data['recipe']
 
             if useinventory:
                 minimum = form.cleaned_data['minimum']
 
-            product = Product(company=company, code=code, unit=unit, description=description, department=department,
-                              subdepartment=subdepartment, cost=cost, minimum=minimum, useinventory=useinventory)
+            product = Product(company=company, code=code, barcode=barcode, unit=unit, description=description,
+                              department=department, subdepartment=subdepartment, cost=cost, minimum=minimum,
+                              useinventory=useinventory, utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
+                              discount=discount, sellprice=sellprice, hasforsale=hasforsale, iscomposed=isComposed)
 
-            productforsale = ProductForSale(company=company, product=product, code=code, barcode=barcode,
-                                            description=description, department=department, subdepartment=subdepartment,
-                                            unit=unit, utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
-                                            discount=discount, sellprice=sellprice)
+            # productforsale = ProductForSale(company=company, product=product, code=code, barcode=barcode,
+            #                                 description=description, department=department, subdepartment=subdepartment,
+            #                                 unit=unit, utility=utility, price=price, usetaxes=usetaxes, taxes=taxes,
+            #                                 discount=discount, sellprice=sellprice)
             try:
                 with transaction.atomic():
 
                     product.save()
 
-                    if form.cleaned_data['hasforsale']:
+                    # if form.cleaned_data['hasforsale']:
+                    #
+                    #     product.hasforsale = form.cleaned_data['hasforsale']
+                    #     product.save()
 
-                        productforsale.save()
-                        product.hasforsale = form.cleaned_data['hasforsale']
-                        product.save()
-
-                    # if not isComposed:
-                    #     recipeObj = Recipe(product=product, isComposed=isComposed)
-                    #     recipeObj.save()
+                    if isComposed:
+                        recipe = Recipe(product=product, isComposed=isComposed, company=company)
+                        recipe.save()
 
                     if 'btn-continue' in request.POST:
                         messages.add_message(request, messages.INFO, 'Producto creado correctamente', extra_tags="success")

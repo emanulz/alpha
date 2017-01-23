@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 import django_filters
-from ...models.products import Product, ProductDepartment, ProductSubDepartment, ProductForSale
+from ...models.products import Product, ProductDepartment, ProductSubDepartment
 
 
 class ProductFilter(django_filters.FilterSet):
@@ -13,12 +13,12 @@ class ProductFilter(django_filters.FilterSet):
                   'cost', 'isactive', 'hasforsale')
 
 
-class ProductForSaleFilter(django_filters.FilterSet):
-
-    class Meta:
-        model = ProductForSale
-        fields = ('id', 'code', 'company', 'product', 'barcode', 'description', 'department', 'subdepartment',
-                  'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
+# class ProductForSaleFilter(django_filters.FilterSet):
+#
+#     class Meta:
+#         model = ProductForSale
+#         fields = ('id', 'code', 'company', 'product', 'barcode', 'description', 'department', 'subdepartment',
+#                   'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
 
 
 class ProductDepartmentFilter(django_filters.FilterSet):

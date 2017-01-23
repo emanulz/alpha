@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from rest_framework import serializers, viewsets
-from ..models.products import Product, ProductDepartment, ProductSubDepartment, ProductForSale
-from .filters.products import ProductFilter, ProductDepartmentFilter, ProductSubDepartmentFilter, ProductForSaleFilter
+from ..models.products import Product, ProductDepartment, ProductSubDepartment
+from .filters.products import ProductFilter, ProductDepartmentFilter, ProductSubDepartmentFilter
 
 
 # API
@@ -24,20 +24,20 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_class = ProductFilter
 
 
-class ProductForSaleSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ProductForSale
-        fields = ('id', 'company', 'product', 'code', 'barcode', 'description', 'department', 'subdepartment',
-                  'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
-
-
-class ProductForSaleViewSet(viewsets.ModelViewSet):
-
-    serializer_class = ProductForSaleSerializer
-    queryset = ProductForSale.objects.all()
-    lookup_field = 'id'
-    filter_class = ProductForSaleFilter
+# class ProductForSaleSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = ProductForSale
+#         fields = ('id', 'company', 'product', 'code', 'barcode', 'description', 'department', 'subdepartment',
+#                   'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
+#
+#
+# class ProductForSaleViewSet(viewsets.ModelViewSet):
+#
+#     serializer_class = ProductForSaleSerializer
+#     queryset = ProductForSale.objects.all()
+#     lookup_field = 'id'
+#     filter_class = ProductForSaleFilter
 
 
 class ProductDepartmentSerializer(serializers.ModelSerializer):

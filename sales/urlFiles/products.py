@@ -9,11 +9,10 @@ from ..views.products.list import product_list
 # from django.contrib.auth.decorators import login_required
 
 from rest_framework import routers
-from ..apis.products import ProductViewSet, ProductDepartmentViewSet, ProductSubDepartmentViewSet, ProductForSaleViewSet
+from ..apis.products import ProductViewSet, ProductDepartmentViewSet, ProductSubDepartmentViewSet
 
 router = routers.DefaultRouter()
 router.register(r'products', ProductViewSet)
-router.register(r'productsforsale', ProductForSaleViewSet)
 router.register(r'product_departments', ProductDepartmentViewSet)
 router.register(r'product_subdepartments', ProductSubDepartmentViewSet)
 

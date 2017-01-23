@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
-from ..models.products import Product, ProductDepartment, ProductSubDepartment, ProductForSale
+from ..models.products import Product, ProductDepartment, ProductSubDepartment
 
 
 class ProductChangeList(ChangeList):
@@ -40,29 +40,29 @@ class ProductAdmin(admin.ModelAdmin):
         return qs.filter(company=request.user.profile.company_id)
 
 
-@admin.register(ProductForSale)
-class ProductForSaleAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'code', 'company', 'product', 'barcode', 'description', 'department', 'subdepartment',
-                    'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
-
-    search_fields = ('id', 'code', 'company', 'product__description', 'barcode', 'description', 'department',
-                     'subdepartment', 'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
-
-    def save_model(self, request, obj, form, change):
-        obj.company = request.user.profile.company
-        super(ProductForSaleAdmin, self).save_model(request, obj, form, change)
-
-    def get_queryset(self, request):
-
-        qs = super(ProductForSaleAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            # It is mine, all mine. Just return everything.
-            return qs
-        # Now we just add an extra filter on the queryset and
-        # we're done. Assumption: Page.owner is a foreignkey
-        # to a User.
-        return qs.filter(company=request.user.profile.company_id)
+# @admin.register(ProductForSale)
+# class ProductForSaleAdmin(admin.ModelAdmin):
+#
+#     list_display = ('id', 'code', 'company', 'product', 'barcode', 'description', 'department', 'subdepartment',
+#                     'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
+#
+#     search_fields = ('id', 'code', 'company', 'product__description', 'barcode', 'description', 'department',
+#                      'subdepartment', 'utility', 'price', 'usetaxes', 'taxes', 'discount', 'sellprice', 'isactive',)
+#
+#     def save_model(self, request, obj, form, change):
+#         obj.company = request.user.profile.company
+#         super(ProductForSaleAdmin, self).save_model(request, obj, form, change)
+#
+#     def get_queryset(self, request):
+#
+#         qs = super(ProductForSaleAdmin, self).get_queryset(request)
+#         if request.user.is_superuser:
+#             # It is mine, all mine. Just return everything.
+#             return qs
+#         # Now we just add an extra filter on the queryset and
+#         # we're done. Assumption: Page.owner is a foreignkey
+#         # to a User.
+#         return qs.filter(company=request.user.profile.company_id)
 
 
 @admin.register(ProductDepartment)

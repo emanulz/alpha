@@ -34,9 +34,9 @@
         div.bg-white.left-item.form-group
             span: b Producto:
             div.inner-addon.right-addon
-                i.fa.fa-barcode(style="padding-right:30px")
+                i.fa.fa-barcode(style="padding-right:60px")
                 button.btn.btn-success.product-search-btn(style="height:48px; width:48px; "): span: i.fa.fa-search(style="padding-bottom:8px")
-                input(type="text" placeholder="Ingrese el Código del Producto").form-control.product_code_field.mousetrap
+                input(type="text" placeholder="Ingrese el Código del Producto").form-control.input-lg.product_code_field.mousetrap
 
         div.bg-white.left-item.product-table(style="margin-top:10px")
             table.table
@@ -104,10 +104,6 @@
                         tr: th IV:
                             td(class='price sale_iv_amount') ₡ 0.00
 
-                span: b Total:
-                    br
-                div
-                    h1.sale-total-div: span.sale_total.price ₡0
 
         div.col-xs-12(style="padding:0;")
             div.bg-white.right-item
@@ -126,8 +122,17 @@ include ./side-pay.jade
 
 | {% endblock %}
 
-| {% block extrajs %}
-|   <script src="{% static 'sales/poss/app.js' %}"></script>
+| {% block footer %}
+.footer
+
+    .col-xs-12.col-sm-8
+        div
+            h1.sale-total-div: span.sale_total.price ₡0
+
+| {% endblock %}
+
+| {% block js %}
+|   <script src="{% static 'public/js/pos_main.js' %}"></script>
 |   <script type="text/javascript">
 |       alertify.defaults.theme.ok = "btn btn-success";
 |       alertify.defaults.theme.cancel = "ui black button";

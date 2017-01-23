@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # 'accounting.saleBills',
     # 'common.clients',
     # 'common.companies',
+    'accounting.apps.AccountingConfig',
     'general.apps.GeneralConfig',
     'sales.apps.SalesConfig',
     ]
@@ -119,6 +120,14 @@ JET_SIDE_MENU_CUSTOM_APPS = [
     ('sales', [
         'Product',
         'Client',
+    ]),
+    ('accounting', [
+        'AccountCategory',
+        'Account',
+        'SubAccount',
+        'DetailAccount',
+        'Entry',
+        'EntryDetail',
     ]),
 
 ]
