@@ -18,7 +18,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('code', 'description', 'department', 'subdepartment', 'useinventory', 'minimum', 'unit',
                     'cost', 'isactive', 'hasforsale')
 
-    search_fields = ('code', 'description', 'department', 'subdepartment', 'useinventory', 'minimum', 'unit',
+    search_fields = ('code', 'description', 'department__name', 'subdepartment__name', 'useinventory', 'minimum', 'unit',
                      'cost', 'isactive', 'hasforsale')
 
     def get_changelist(self, request, **kwargs):
