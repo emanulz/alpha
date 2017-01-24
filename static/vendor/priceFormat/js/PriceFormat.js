@@ -87,7 +87,7 @@
 				var formatted = '';
 				for (var i=0;i<(str.length);i++)
 				{
-					char_ = str.charAt(i);
+					var char_ = str.charAt(i);
 					if (formatted.length==0 && char_==0) char_ = false;
 
 					if (char_ && char_.match(is_number))
@@ -143,7 +143,7 @@
 				{
 					for (var j=integerVal.length;j>0;j--)
 					{
-						char_ = integerVal.substr(j-1,1);
+						var char_ = integerVal.substr(j-1,1);
 						thousandsCount++;
 						if (thousandsCount%3==0) char_ = thousandsSeparator+char_;
 						thousandsFormatted = char_+thousandsFormatted;

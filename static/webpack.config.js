@@ -7,10 +7,10 @@ module.exports = {
   devtool: debug ? "inline-sourcemap" : null,
   entry: {
     layout_main: "./layout/js/index.js",
-    clients_addEdit: "./common/clients/js/addEdit/index.js",
-    products_main: "./common/products/js/lib/list/index.js",
-    products_addEdit: "./common/products/js/lib/create/index.js",
-    pos_main: "./sales/poss/js/index.js",
+    clients_addEdit: "./sales/clients/js/addEdit/index.js",
+    products_main: "./sales/products/js/lib/list/index.js",
+    products_addEdit: "./sales/products/js/lib/create/index.js",
+    pos_main: "./sales/pos/js/index.js",
   },
   module:{
     loaders: [

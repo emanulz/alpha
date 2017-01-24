@@ -12,7 +12,7 @@ export function loadToLocalStorage(store){
 
 function productsToMemory(store) {
 
-    $.get(`/api/products/?company=${store.companyId}`, function (data) {
+    $.get(`/sales/api/products/?company=${store.companyId}`, function (data) {
 
     }).success((data)=> {
         localStorage.Products=JSON.stringify(data);
@@ -22,7 +22,7 @@ function productsToMemory(store) {
 
 function clientsToMemory(store) {
 
-    $.get(`/api/clients/?company=${store.companyId}`, function (data) {
+    $.get(`/sales/api/clients/?company=${store.companyId}`, function (data) {
 
     }).success((data)=>{
          localStorage.Clients=JSON.stringify(data);

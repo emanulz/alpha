@@ -8,11 +8,11 @@ var jQuery = require('jquery');
 window.$ = $;
 window.jQuery = jQuery;
 
-var priceFormat = require('priceFormat');
 var mouseTrap = require('mouseTrap');
 var alertify = require('alertifyjs');
 
 window.alertify = alertify;
+
 import {browserObjectEvents} from "./lib/browserEvents";
 import {loadToLocalStorage} from  "./lib/loadToLocalStorage";
 

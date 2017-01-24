@@ -9,8 +9,9 @@ class ProductFilter(django_filters.FilterSet):
 
     class Meta:
         model = Product
-        fields = ('id', 'code', 'description', 'department', 'subdepartment', 'useinventory', 'minimum', 'unit',
-                  'cost', 'isactive', 'hasforsale')
+        fields = ('id', 'company', 'code', 'description', 'department', 'subdepartment', 'useinventory', 'minimum',
+                  'unit', 'cost', 'utility', 'usetaxes', 'price', 'taxes', 'discount', 'sellprice', 'isactive',
+                  'hasforsale')
 
 
 # class ProductForSaleFilter(django_filters.FilterSet):

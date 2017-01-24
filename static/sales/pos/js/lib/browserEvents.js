@@ -302,7 +302,7 @@ export function browserObjectEvents(store){
 
                 store = updateTotals(store);
 
-                if (saleList.length==0){
+                if (store.saleList.length==0){
 
                 }
             }

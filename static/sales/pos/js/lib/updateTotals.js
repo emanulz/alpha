@@ -1,3 +1,4 @@
+
 export function updateTotals(store) {
 
     var subtotal=0;

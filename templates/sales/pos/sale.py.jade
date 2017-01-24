@@ -5,7 +5,7 @@
 
 | {% block extrastyle %}
 |   <link rel="stylesheet" type="text/css" href="{% static "vendor/side-panel/css/style.css" %}" />
-|   <link rel="stylesheet" type="text/css" href="{% static "sales/poss/css/index.css" %}" />
+|   <link rel="stylesheet" type="text/css" href="{% static "sales/pos/css/index.css" %}" />
 | {% endblock %}
 
 |{% block breadcrumbs %}
@@ -132,9 +132,11 @@ include ./side-pay.jade
 | {% endblock %}
 
 | {% block js %}
+|   <script src="{% static 'public/js/layout_main.js' %}"></script>
 |   <script src="{% static 'public/js/pos_main.js' %}"></script>
 |   <script type="text/javascript">
 |       alertify.defaults.theme.ok = "btn btn-success";
 |       alertify.defaults.theme.cancel = "ui black button";
 |   </script>
+|   <script src="{% static 'vendor/priceFormat/js/PriceFormat.js' %}"></script>
 | {% endblock %}

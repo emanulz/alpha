@@ -12,8 +12,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'company', 'code', 'description', 'department', 'subdepartment', 'useinventory', 'minimum', 'unit',
-                  'cost', 'isactive', 'hasforsale')
+        fields = ('id', 'company', 'code', 'description', 'department', 'subdepartment', 'useinventory', 'minimum',
+                  'unit', 'cost', 'utility', 'usetaxes', 'price', 'taxes', 'discount', 'sellprice', 'isactive',
+                  'hasforsale')
 
 
 class ProductViewSet(viewsets.ModelViewSet):

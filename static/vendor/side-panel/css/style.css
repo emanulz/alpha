@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -25,9 +25,9 @@ body {
   text-decoration: none;
 }*/
 
-/* -------------------------------- 
+/* --------------------------------
 
-Main components 
+Main components
 
 -------------------------------- */
 html, body {
@@ -97,6 +97,7 @@ html, body {
   -webkit-transition: visibility 0s 0s;
   -moz-transition: visibility 0s 0s;
   transition: visibility 0s 0s;
+
 }
 .cd-panel.is-visible::after {
   background: rgba(0, 0, 0, 0.6);
