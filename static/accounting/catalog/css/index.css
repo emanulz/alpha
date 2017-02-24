@@ -1,0 +1,66 @@
+
+.main-table th {
+
+    font-size: 19px;
+
+}
+
+.main-table td {
+
+    font-size: 14px;
+
+}
+
+.main-table td a {
+    color: rgba(59, 77, 117, 0.88);
+}
+
+.main-table td a:hover {
+
+    color: white;
+
+}
+.account-category{
+
+
+    background-color: rgba(226, 141, 80, 0.77);
+    color: black;
+
+}
+
+.account-group{
+
+
+    background-color: rgba(246, 192, 129, 0.75);
+    color: black;
+}
+
+.account td{
+    background-color: rgba(189, 185, 84, 0.79);
+    color: black;
+    font-size: 14px;
+
+}
+
+.subaccount td{
+    background-color: rgba(93, 179, 58, 0.72);
+    color: black;
+    font-size: 14px;
+}
+
+
+.detailaccount td{
+    font-size: 14px;
+    background-color: rgba(177, 181, 175, 0.72);
+    color: black;
+}
+
+.separator{
+    margin: 10px 0;
+}
+
+.catalog-tittle{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}

@@ -1,0 +1,28 @@
+{% extends "accounting/catalog/change_list_catalog.html" %}
+{% load i18n admin_urls static admin_list %}
+
+
+
+{% block catalog %}
+    <div class="catalog-tittle">Catálogo de Cuentas Contables</div>
+    <input type="text" hidden value="{{user.profile.company.id}}" id='id_company'>
+    <div class="main-content">
+
+        <table style="width:80%" class="main-table">
+            <tr class="table-header">
+                <th style="width:30%">Código de cuenta</th>
+                <th style="width:50%">Descripción</th>
+                <th style="width:20%">Clasificación</th>
+            </tr>
+        </table>
+
+    </div>
+{% endblock %}
+
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+<link rel="stylesheet" href="{% static 'accounting/catalog/css/index.css' %}">
+<script src="{% static 'public/js/catalog_list.js' %}"></script>
+{% endblock %}

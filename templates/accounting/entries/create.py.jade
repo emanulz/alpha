@@ -1,0 +1,166 @@
+|{% extends "layout/base_layout.html" %}
+
+| {% load i18n static %}
+| {% load widget_tweaks %}
+
+{% block title %}
+
+|   {% if form.code.value %}
+|       <title>{{form.code.value}}</title>
+
+|   {% else %}
+
+|       <title>Crear Asiento</title>
+
+|   {% endif %}
+
+{% endblock %}
+
+
+{% block breadcrumbs %}
+|   <div class="breadcrumbs col-xs-12" style="height: 40px;">
+|   <a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <a href="/admin/accounting/entry">Asientos</a>
+
+{% if form.code.value %}
+
+|   &rsaquo; &nbsp;  <span class='current-text'>{{form.code.value}}</span>
+
+{% else %}
+
+|   &rsaquo; &nbsp;  <span class='current-text'>Agregar</span>
+
+{% endif %}
+
+|   <div id="user-tools" class="pull-right" style="margin-right: 50px;">
+|       {% block welcome-msg %}
+|       {% trans 'Welcome,' %}
+|       <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+|       {% endblock %}
+|       {% block userlinks %}
+|       {% if user.has_usable_password %}
+|       <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+|       {% endif %}
+|       <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+|       {% endblock %}
+|       </div>
+|   </div>
+
+{% endblock %}
+
+{% block content %}
+
+|{% csrf_token %}
+
+.context-menu
+
+.app-container-div
+
+
+
+    form(action='', method='post', novalidate id="createForm").form-inline
+        |{% csrf_token %}
+        input(type='text' hidden value='{{company}}')#id_company
+
+        .row
+            //-----------------------------------------------------------------------------
+            //-General data div
+
+            .form-group.col-xs-12.block.general-block
+
+                .col-xs-10.no-padding-right
+                    span.title Datos Asiento:
+                    hr.intro-dividertitle
+
+                .col-xs-12.col-sm-3
+                    label Fecha: &nbsp;
+                    input(type='date').form-control.date
+                    .hidden
+
+                .col-xs-12.col-sm-3.currency-div
+                    label Moneda: &nbsp;
+                    select.form-control.currency(style='width:65%;')
+                    .hidden
+
+                .col-xs-12.col-sm-3
+                    label T.C: &nbsp;
+                    input(type='number').form-control.exchange-rate
+                    .hidden
+
+
+            //General data div
+            .form-group.col-xs-12.block.data-block
+
+
+            //-----------------------------------------------------------------------------
+
+            //-Entry Detail div
+
+            br
+            br
+            br
+            br
+            .form-group.col-xs-12.block.general-block
+
+                .col-xs-10.no-padding-right
+                    span.title Detalles:
+                    hr.intro-dividertitle
+                br
+                br
+                .col-xs-11
+                    table.table.table-hover.table-bordered.table-entry
+                        tr
+                            th(style='width:45%') Cuenta
+                            th Documento
+                            th Debe
+                            th Haber
+
+                    input(type='button', value='Nueva Línea').form-control.btn.btn-primary.new-line-btn
+
+            //-------Entry Detail div
+            //-----------------------------------------------------------------------------
+
+            //-----------------------------------------------------------------------------
+
+| {% endblock %}
+
+
+| {% block footer %}
+
+//Save div
+.footer
+    .form-group.col-xs-12.block.save(style='padding-top:3px')
+        .col-xs-3(style='margin-top:10px')
+            .total-tag
+                span Debe :&nbsp;
+                sspan.total-debe
+                    span.currency-symbol
+                    &nbsp;
+                    span.total-debe-val 0.00
+        .col-xs-3(style='margin-top:10px')
+            .total-tag
+                span Haber :&nbsp;
+                span.total-haber
+                    span.currency-symbol
+                    &nbsp;
+                    span.total-haber-val 0.00
+
+        .col-xs-3(style='margin-top:10px')
+            .total-tag
+                span Diferencia :&nbsp;
+                span.total-difference
+                    span.currency-symbol
+                    &nbsp;
+                    span.total-difference-val 0.00
+        .col-xs-3(style='margin-top:10px')
+            input(type='submit', name = 'btn-save', form='createForm', value='Guardar').form-control.btn-success.save--btn-save
+
+
+//-Save div
+//-----------------------------------------------------------------------------
+
+| {% endblock %}
+
+
+| {% block js %}
+| <script src="{% static 'public/js/entries_addEdit.js' %}"></script>
+| {% endblock %}

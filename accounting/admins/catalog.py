@@ -2,15 +2,34 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from ..models.catalog import Account, AccountCategory, DetailAccount, SubAccount
+from ..models.catalog import Catalog, Account, AccountCategory, AccountGroup, DetailAccount, SubAccount
+
+
+@admin.register(Catalog)
+class CatalogAdmin(admin.ModelAdmin):
+
+    list_display = ('name',)
+
+    search_fields = ('name',)
+
+    def save_model(self, request, obj, form, change):
+        obj.company = request.user.profile.company
+        super(AccountAdmin, self).save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+
+        qs = super(CatalogAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(company=request.user.profile.company_id)
 
 
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
 
-    list_display = ('identifier', 'name', 'description', 'category')
+    list_display = ('identifier', 'name', 'description', 'group', 'movements')
 
-    search_fields = ('identifier', 'name', 'description', 'category__name')
+    search_fields = ('identifier', 'name', 'description', 'group__name')
 
     def save_model(self, request, obj, form, change):
         obj.company = request.user.profile.company
@@ -27,7 +46,7 @@ class AccountAdmin(admin.ModelAdmin):
 @admin.register(AccountCategory)
 class AccountCategoryAdmin(admin.ModelAdmin):
 
-    list_display = ('identifier', 'name', 'description')
+    list_display = ('identifier', 'name', 'description', 'movements')
 
     search_fields = ('identifier', 'name', 'description')
 
@@ -43,10 +62,29 @@ class AccountCategoryAdmin(admin.ModelAdmin):
         return qs.filter(company=request.user.profile.company_id)
 
 
+@admin.register(AccountGroup)
+class AccountGroupAdmin(admin.ModelAdmin):
+
+    list_display = ('identifier', 'name', 'description', 'movements')
+
+    search_fields = ('identifier', 'name', 'description')
+
+    def save_model(self, request, obj, form, change):
+        obj.company = request.user.profile.company
+        super(AccountGroupAdmin, self).save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+
+        qs = super(AccountGroupAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(company=request.user.profile.company_id)
+
+
 @admin.register(SubAccount)
 class SubAccountAdmin(admin.ModelAdmin):
 
-    list_display = ('identifier', 'name', 'description', 'account')
+    list_display = ('identifier', 'name', 'description', 'account', 'movements')
 
     search_fields = ('identifier', 'name', 'description', 'account__name')
 
@@ -65,7 +103,7 @@ class SubAccountAdmin(admin.ModelAdmin):
 @admin.register(DetailAccount)
 class DetailAccountAdmin(admin.ModelAdmin):
 
-    list_display = ('identifier', 'name', 'description', 'subaccount')
+    list_display = ('identifier', 'name', 'description', 'subaccount', 'movements')
 
     search_fields = ('identifier', 'name', 'description', 'subaccount__name', 'subaccount__account')
 

@@ -10,6 +10,7 @@ class Entry(models.Model):
 
     company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
     date = models.DateField(verbose_name='Fecha')
+    entyDate = models.DateField(verbose_name='Fecha del asiento', null=True)
     detail = models.CharField(max_length=255, verbose_name='Detalle')
     totalDebit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Total Debe')
     totalCredit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Total Haber')

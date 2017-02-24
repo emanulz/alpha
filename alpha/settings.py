@@ -122,12 +122,13 @@ JET_SIDE_MENU_CUSTOM_APPS = [
         'Client',
     ]),
     ('accounting', [
+        'Entry',
+        'EntryDetail',
+        'Catalog',
         'AccountCategory',
         'Account',
         'SubAccount',
         'DetailAccount',
-        'Entry',
-        'EntryDetail',
     ]),
 
 ]

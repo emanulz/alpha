@@ -16,7 +16,7 @@
     "qtip": "./vendor/qtip/qtip.min.js",
     "slidebars": "./node_modules/slidebars/dist/slidebars.min.js",
     "controller": "./layout/js/controller.js",
-    "dynatable":"./vendor/dynaTables/js/jquery.dynatable.js"
+    "dynatable": "./vendor/dynaTables/js/jquery.dynatable.js"
   },
   "dependencies": {
     "alertifyjs": "^1.8.0",
@@ -40,11 +40,8 @@
   "scripts": {
     "dev": "webpack --watch",
     "prod": "NODE_ENV=production webpack",
-
     "dev-styl-layout": "stylus --include-css --compress -w ./layout/css/app.styl -o ./layout/app.css",
     "prod-styl-layout": "cleancss -o ./layout/app.css ./layout/app.css",
     "dev-styl-sales": "stylus --include-css --compress ./sales/pos/css/app.styl -o ./sales/pos/app.css"
-
-
   }
 }
