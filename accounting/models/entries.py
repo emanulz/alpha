@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from general.models.companies import Company
-from .catalog import Account, SubAccount, DetailAccount
+from .catalog import Account
 
 
 class Entry(models.Model):
@@ -30,8 +30,6 @@ class EntryDetail(models.Model):
     company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
     entry = models.ForeignKey('Entry', verbose_name='Asiento')
     account = models.ForeignKey(Account, verbose_name='Cuenta')
-    subAccount = models.ForeignKey(SubAccount, verbose_name='Sub-Cuenta')
-    detailAccount = models.ForeignKey(DetailAccount, verbose_name='Cuenta Detalle')
     debit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Debe')
     credit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Haber')
 

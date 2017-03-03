@@ -1,0 +1,43 @@
+@media (min-width: 768px){
+    .form-inline .form-control {
+        width: 100% !important;
+    }
+
+}
+
+.inner-addon {
+    position: relative;
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+.table-col{
+    max-height:430px;
+    overflow-x: scroll;
+}
+
+
+.parent-account-div .select2-container--default .select2-selection--single{
+
+    height: 35px;
+
+}
+
+.level-div .select2-container--default .select2-selection--single{
+
+    height: 35px;
+
+}

@@ -125,10 +125,7 @@ JET_SIDE_MENU_CUSTOM_APPS = [
         'Entry',
         'EntryDetail',
         'Catalog',
-        'AccountCategory',
         'Account',
-        'SubAccount',
-        'DetailAccount',
     ]),
 
 ]

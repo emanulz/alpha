@@ -12,6 +12,7 @@ module.exports = {
     products_addEdit: "./sales/products/js/lib/create/index.js",
     entries_addEdit: "./accounting/entries/js/lib/create/index.js",
     catalog_list: "./accounting/catalog/js/lib/list/index.js",
+    catalog_addEdit: "./accounting/catalog/js/lib/create/index.js",
     pos_main: "./sales/pos/js/index.js",
   },
   module:{

@@ -1,0 +1,169 @@
+|{% extends "layout/base_layout.html" %}
+
+| {% load i18n static %}
+| {% load widget_tweaks %}
+
+{% block title %}
+
+|   {% if form.code.value %}
+|       <title>{{form.code.value}}</title>
+
+|   {% else %}
+
+|       <title>Crear Cuenta</title>
+
+|   {% endif %}
+
+{% endblock %}
+
+
+{% block breadcrumbs %}
+|   <div class="breadcrumbs col-xs-12" style="height: 40px;">
+|   <a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <a href="/admin/accounting/account">Cuentas</a>
+
+{% if form.code.value %}
+
+|   &rsaquo; &nbsp;  <span class='current-text'>{{form.code.value}}</span>
+
+{% else %}
+
+|   &rsaquo; &nbsp;  <span class='current-text'>Agregar</span>
+
+{% endif %}
+
+|   <div id="user-tools" class="pull-right" style="margin-right: 50px;">
+|       {% block welcome-msg %}
+|       {% trans 'Welcome,' %}
+|       <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+|       {% endblock %}
+|       {% block userlinks %}
+|       {% if user.has_usable_password %}
+|       <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+|       {% endif %}
+|       <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+|       {% endblock %}
+|       </div>
+|   </div>
+
+{% endblock %}
+
+{% block content %}
+
+|{% csrf_token %}
+
+
+.app-container-div
+
+
+
+    form(action='', method='post', novalidate id="createForm").form-inline
+        |{% csrf_token %}
+        input(type='text' hidden value='{{company}}')#id_company
+
+        .row.col-sm-7.account-data-div
+            //-----------------------------------------------------------------------------
+            //-General data div
+
+            .form-group.col-xs-12
+
+                .col-xs-10.no-padding-right
+                    span.title Datos de la cuenta:
+                    hr.intro-dividertitle
+
+                .col-xs-12.col-sm-6.level-div
+                    label Nivel: &nbsp;
+                    select.form-control.level-select
+                        option
+                        option(value=0) 0 - Categoría
+                        option(value=1) 1 - Grupo
+                        option(value=2) 2 - Cuenta
+                        option(value=3) 3 - Sub-Cuenta
+                        option(value=4) 4 - Cuenta Auxiliar
+
+                .col-xs-12.col-sm-6.parent-account-div
+                    label Cuenta Padre: &nbsp;
+                    select.form-control.accounts-select
+
+            //General data div
+            // -----------------------------------------------------------------------------
+            // ----Account Detail div
+
+            .form-group.col-xs-12
+
+                .col-xs-12.col-sm-6
+                    label Código:
+                    input.form-control.code-field(type='number', max=999, min=1)
+
+                .col-xs-12.col-sm-6
+                    label Naturaleza: &nbsp;
+                    select.form-control
+                        option(value='deb') Debe
+                        option(value='hab') Haber
+
+            .form-group.col-xs-12
+
+                .col-xs-12.col-sm-6
+                    label Nombre: &nbsp;
+                    input.form-control(type='text')
+                .col-xs-12.col-sm-3
+                    label Activa? : &nbsp;
+                    input.form-control(type='checkbox')
+
+                .col-xs-12.col-sm-3
+                    label Movimiento?:
+                    input.form-control(type='checkbox')
+
+            .form-group.col-xs-12
+
+            //-------Entry Detail div
+            //-----------------------------------------------------------------------------
+
+            //-----------------------------------------------------------------------------
+
+        .row.col-sm-5
+            .col-xs-12.no-padding-right
+                .col-xs-5.no-padding-left
+                    span.title Catálogo de Cuentas:
+                .col-xs-7.no-padding-left
+                    .inner-addon.left-addon
+                        i.glyphicon.glyphicon-search
+                        input(type='text').form-control
+                br
+                br
+
+            .col-xs-12.table-col
+                table.table.table-hover.table-bordered.accounts-table
+                    thead
+                        tr
+                            th Código
+                            th Descripción
+                            th Nivel
+                    tbody
+
+| {% endblock %}
+
+
+| {% block footer %}
+
+/Save div
+.footer
+    .form-group.col-xs-12.block.save(style='padding-top:3px')
+        .col-xs-4(style='margin-top:10px')
+            input(type='submit', name = 'btn-other', form='createForm', value='Guardar').form-control.btn-primary.save--btn-other
+        .col-xs-4(style='margin-top:10px')
+            input(type='submit', name = 'btn-continue', form='createForm', value='Guardar y Continuar').form-control.btn-primary.save--btn-continue
+        .col-xs-4(style='margin-top:10px')
+            input(type='submit', name = 'btn-save', form='createForm', value='Guardar y Agregar Otro').form-control.btn-success.save--btn-save
+//-Save div
+//-----------------------------------------------------------------------------
+
+| {% endblock %}
+
+
+| {% block js %}
+| <script src="{% static 'public/js/catalog_addEdit.js' %}"></script>
+| {% endblock %}
+
+|{% block extrastyle %}
+|<link rel="stylesheet" type="text/css" href="{% static "accounting/catalog/css/accounts/index.css" %}" />
+|{% endblock %}
