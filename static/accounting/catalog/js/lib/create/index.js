@@ -27,6 +27,7 @@ $.ajaxSetup({
 import {loadData} from './loadData';
 import {drawTable} from './drawTable';
 import {accountsToSelect} from './accoutsToSelect';
+import {actions} from './actions';
 
 $(document).on('ready', mainCreateCatalog);
 
@@ -54,23 +55,4 @@ function mainCreateCatalog() {
 
     actions();
 
-
 }//MAIN FUNCTION
-
-
-function actions(){
-
-    //Selectors
-
-    let $accountData = $('.account-data-div');
-    let $level = $accountData.find('.level-select');
-
-    $accountData.on("select2:select",".level-select", function (e) {
-
-        
-
-    });
-
-
-
-}

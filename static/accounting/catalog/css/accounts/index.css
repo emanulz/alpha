@@ -41,3 +41,12 @@
     height: 35px;
 
 }
+
+.selected-div{
+    border: 1px solid #CCCCCC;
+    height: 35px;
+    line-height: 30px;
+    padding-left: 5px;
+    padding-top: 2px;
+    border-radius: 4px;
+}
