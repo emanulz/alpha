@@ -33,9 +33,7 @@ class Account(models.Model):
     name = models.CharField(max_length=255, verbose_name='Nombre')
     identifier = models.CharField(max_length=3, verbose_name='Identificador')
     nature = models.CharField(max_length=3, choices=NATURE_CHOICES, default=deb, verbose_name='Naturaleza')
-    level = models.PositiveIntegerField(verbose_name='Nivel de la cuenta', default=0,
-                                        validators=[MaxValueValidator(9,
-                                                    message='nivel debe ser de un solo dígito')])
+    level = models.ForeignKey('AccountLevel', verbose_name='Nivel de la Cuenta')
     parent = models.ForeignKey('self', blank=True, null=True, verbose_name='Cuenta Padre')
     movements = models.BooleanField(default=False, verbose_name='Acepta Movimiento?')
     active = models.BooleanField(default=True, verbose_name='Cuenta Activa?')
@@ -47,6 +45,30 @@ class Account(models.Model):
         verbose_name = 'Cuenta Contable'
         verbose_name_plural = 'Catálogo - 1. Cuentas Contables'
         ordering = ['id']
+
+    @property
+    def level_num(self):
+        return self.level.level
+
+
+class AccountLevel(models.Model):
+
+    company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
+    name = models.CharField(max_length=255, verbose_name='Nombre')
+    level = models.PositiveIntegerField(verbose_name='Nivel de cuenta')
+    identifierDigits = models.PositiveIntegerField(default=1)
+
+    def __unicode__(self):
+        return '%s' % self.name
+
+    class Meta:
+        unique_together = ('company', 'level')
+        verbose_name = 'Nivel de Cuenta'
+        verbose_name_plural = 'Catálogo - 2. Niveles de Cuenta'
+        ordering = ['id']
+
+
+
 #
 # class AccountCategory(models.Model):
 #
@@ -73,24 +95,6 @@ class Account(models.Model):
 #         ordering = ['id']
 #
 #
-# class AccountGroup(models.Model):
-#
-#     company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
-#     category = models.ForeignKey('AccountCategory', verbose_name='Tipo de Cuenta')
-#     name = models.CharField(max_length=255, verbose_name='Nombre')
-#     description = models.CharField(max_length=255, verbose_name='Descripción')
-#     identifier = models.CharField(max_length=1, verbose_name='Identificador')
-#     movements = models.BooleanField(default=False, verbose_name='Acepta Movimiento?')
-#
-#     def __unicode__(self):
-#         return '%s' % self.name
-#
-#     class Meta:
-#         verbose_name = 'Grupo de Cuenta'
-#         verbose_name_plural = 'Catálogo - 2. Grupos de Cuentas'
-#         ordering = ['id']
-
-
 
 # class SubAccount(models.Model):
 #

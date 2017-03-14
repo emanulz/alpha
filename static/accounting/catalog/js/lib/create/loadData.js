@@ -1,15 +1,16 @@
 global.jQuery = require("jquery");
 
-export function loadData(){
+export function loadData(api){
+
 
     let company = $('#id_company').val();
 
-    $.get(`/accounting/api/accounts/?company=${company}`, function (data) {
+    $.get(`/accounting/api/${api}/?company=${company}`, function (data) {
 
-       localStorage.accounts = JSON.stringify(data);
+       localStorage[api] = JSON.stringify(data);
 
     });
 
-    return JSON.parse(localStorage.accounts);
+    return JSON.parse(localStorage[api]);
 
 }

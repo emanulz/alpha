@@ -73,12 +73,6 @@
                 .col-xs-12.col-sm-6.level-div
                     label Nivel: &nbsp;
                     select.form-control.level-select
-                        option
-                        option(value=0) 0 - Categoría
-                        option(value=1) 1 - Grupo
-                        option(value=2) 2 - Cuenta
-                        option(value=3) 3 - Sub-Cuenta
-                        option(value=4) 4 - Cuenta Auxiliar
 
                 .col-xs-12.col-sm-6.parent-account-div
                     label Cuenta Padre: &nbsp;
@@ -94,9 +88,9 @@
                     label Código:
                     input.form-control.code-field(type='number', max=999, min=1)
 
-                .col-xs-12.col-sm-6
+                .col-xs-12.col-sm-6.nature-select-div
                     label Naturaleza: &nbsp;
-                    select.form-control
+                    select.form-control.nature-select
                         option(value='deb') Debe
                         option(value='hab') Haber
 
@@ -104,14 +98,14 @@
 
                 .col-xs-12.col-sm-6
                     label Nombre: &nbsp;
-                    input.form-control(type='text')
+                    input.form-control.name-field(type='text')
                 .col-xs-12.col-sm-3
                     label Activa? : &nbsp;
-                    input.form-control(type='checkbox')
+                    input.form-control.active-checkbox(type='checkbox')
 
                 .col-xs-12.col-sm-3
                     label Movimiento?:
-                    input.form-control(type='checkbox')
+                    input.form-control.movement-checkbox(type='checkbox')
 
             .form-group.col-xs-12
 

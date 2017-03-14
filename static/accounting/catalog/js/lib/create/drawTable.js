@@ -20,7 +20,7 @@ export function drawTable(accounts){
                 ${accounts[i].name}
             </td>
             <td>
-                ${accounts[i].level}
+                ${accounts[i].level_num}
             </td>
          </tr>`
      )

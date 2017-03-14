@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from ..models.catalog import Catalog, Account
+from ..models.catalog import Catalog, Account, AccountLevel
 
 
 @admin.register(Catalog)
@@ -42,6 +42,24 @@ class AccountAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(company=request.user.profile.company_id)
 
+
+@admin.register(AccountLevel)
+class AccountLevelAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'level')
+
+    search_fields = ('name', 'level')
+
+    def save_model(self, request, obj, form, change):
+        obj.company = request.user.profile.company
+        super(AccountLevelAdmin, self).save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+
+        qs = super(AccountLevelAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(company=request.user.profile.company_id)
 
 # @admin.register(AccountCategory)
 # class AccountCategoryAdmin(admin.ModelAdmin):

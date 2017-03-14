@@ -1,12 +1,18 @@
 global.jQuery = require("jquery");
-import {accountsToSelect} from './accoutsToSelect';
+import {dataToSelect} from './dataToSelect';
+import {filterLevel} from './filterLevel';
+import {filterParentAccount} from './filterParentAccount';
+import {generateCode} from './generateCode';
 
-export function actions(){
+generateCode
+
+export function actions(store){
 
     //Selectors
 
     let $accountData = $('.account-data-div');
-    let $level = $accountData.find('.level-select');
+    let accounts = JSON.parse(localStorage.accounts);
+    let accountlevels = JSON.parse(localStorage.accountlevels);
 
     //click on select level
 
@@ -18,9 +24,19 @@ export function actions(){
                                         <span class="glyphicon glyphicon-remove-circle remove-item remove-level" aria-hidden="true"></span>
                                       </div>`);
 
+        let $this = this;
+
+        let selectedLevel = accountlevels.filter((obj)=>{
+            return obj.id == $($this).closest('select').val();
+        })
+
+        store.selectedLevel = selectedLevel[0];
+
         $(this).closest('select').select2('destroy');
         $(this).closest('select').remove();
         $('.accounts-select').attr("disabled", false);
+
+        filterParentAccount(accounts, store);
 
     });
 
@@ -28,7 +44,17 @@ export function actions(){
 
     $accountData.on("select2:select",".accounts-select", function (e) {
 
+        let $this = this;
+
+        let selectedParentAccount = accounts.filter((obj)=>{
+            return obj.id == $($this).closest('select').val();
+        })
+
+        store.selectedParentAccount = selectedParentAccount[0];
+
+
         let text = e.params.data.text
+
         $(this).closest('div').append(`<div class="level-text selected-div">
                                         <span class="account-text-span">${text}</span>
                                         <span class="glyphicon glyphicon-remove-circle remove-item remove-account" aria-hidden="true"></span>
@@ -36,26 +62,23 @@ export function actions(){
 
         $(this).closest('select').select2('destroy');
         $(this).closest('select').remove();
-        $('.code-div :input').attr("disabled", false);
+        let $codeField = $('.code-div :input');
+
+        generateCode(store, $codeField, accounts);
 
     });
 
     //click on remove level
     $accountData.on("click",".remove-level", function () {
 
-        $(this).closest('.level-div').append(`<select class="form-control level-select">
-                                                  <option></option>
-                                                  <option value="0">0 - Categoría</option>
-                                                  <option value="1">1 - Grupo</option>
-                                                  <option value="2">2 - Cuenta</option>
-                                                  <option value="3">3 - Sub-Cuenta</option>
-                                                  <option value="4">4 - Cuenta Auxiliar</option>
-                                                </select>`);
-       $(this).closest('div').remove();
+        $(this).closest('.level-div').append(`<select class="form-control level-select"></select>`);
+        $(this).closest('div').remove();
 
-       $(() => {
-         $('.level-select').select2({ placeholder: 'Seleccione un nivel', width: '100%' });
-       });
+        store.selectedLevel = '';
+
+        filterLevel(accounts, accountlevels);
+
+        //dataToSelect(JSON.parse(localStorage.accountlevels), 'level-select', 'id','level', 'name');
 
     });
 
@@ -65,13 +88,10 @@ export function actions(){
        $(this).closest('.parent-account-div').append(`<select class="form-control accounts-select"></select>`);
        $(this).closest('div').remove();
 
-       accountsToSelect(JSON.parse(localStorage.accounts));
-
-       $(() => {
-         $('.accounts-select').select2({ placeholder: 'Seleccione una cuenta', width: '100%' });
-       });
+       dataToSelect(JSON.parse(localStorage.accounts), 'accounts-select', 'id','identifier', 'name');
 
     });
 
+return store;
 
 }

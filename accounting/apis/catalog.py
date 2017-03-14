@@ -2,17 +2,39 @@
 from __future__ import unicode_literals
 
 from rest_framework import serializers, viewsets, filters
-from ..models.catalog import Account
-from .filters.catalog import AccountFilter
+from ..models.catalog import Account, AccountLevel
+from .filters.catalog import AccountFilter, AccountLevelFilter
+
+
+# API
+
+class AccountLevelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AccountLevel
+        fields = ('id', 'company', 'name', 'level', 'identifierDigits')
+
+
+class AccountLevelViewSet(viewsets.ModelViewSet):
+
+    serializer_class = AccountLevelSerializer
+    queryset = AccountLevel.objects.all()
+    lookup_field = 'id'
+    filter_class = AccountLevelFilter
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('id', 'level')
+    ordering = ('level',)
 
 
 # API
 
 class AccountSerializer(serializers.ModelSerializer):
 
+    level_num = serializers.ReadOnlyField()
+
     class Meta:
         model = Account
-        fields = ('id', 'company', 'name', 'identifier', 'nature', 'level', 'parent', 'active', 'movements')
+        fields = ('id', 'company', 'name', 'identifier', 'nature', 'level', 'level_num', 'parent', 'active', 'movements')
 
 
 class AccountViewSet(viewsets.ModelViewSet):
@@ -24,8 +46,6 @@ class AccountViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.OrderingFilter,)
     ordering_fields = ('id', 'identifier')
     ordering = ('identifier',)
-
-
 # class AccountCategorySerializer(serializers.ModelSerializer):
 #
 #     class Meta:
