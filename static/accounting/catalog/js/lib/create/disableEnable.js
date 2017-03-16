@@ -14,6 +14,9 @@ export function disableEnable(event, store){
     let $movement = $accountData.find('.movement-checkbox');
 
 
+    $(".account-data-div :input").removeClass("error-field");
+
+
     //swith of events
     switch(event){
 

@@ -29,7 +29,7 @@ class Account(models.Model):
                       (hab, 'Haber'),
                       )
 
-    company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
+    company = models.ForeignKey(Company, verbose_name='Empresa')
     name = models.CharField(max_length=255, verbose_name='Nombre')
     identifier = models.CharField(max_length=3, verbose_name='Identificador')
     nature = models.CharField(max_length=3, choices=NATURE_CHOICES, default=deb, verbose_name='Naturaleza')

@@ -3,8 +3,10 @@ import {dataToSelect} from './dataToSelect';
 import {filterLevel} from './filterLevel';
 import {filterParentAccount} from './filterParentAccount';
 import {generateCode} from './generateCode';
-
-generateCode
+import {disableEnable} from './disableEnable';
+import {drawTable} from './drawTable';
+import {checks} from './checks';
+import {save} from './save';
 
 export function actions(store){
 
@@ -39,6 +41,7 @@ export function actions(store){
         filterParentAccount(accounts, store);
 
     });
+
 
     //click on select account
 
@@ -76,9 +79,11 @@ export function actions(store){
 
         store.selectedLevel = '';
 
-        filterLevel(accounts, accountlevels);
+        $('.account-data-div .remove-account').trigger('click');
 
-        //dataToSelect(JSON.parse(localStorage.accountlevels), 'level-select', 'id','level', 'name');
+        disableEnable('remove-level', store)
+
+        filterLevel(accounts, accountlevels);
 
     });
 
@@ -88,7 +93,43 @@ export function actions(store){
        $(this).closest('.parent-account-div').append(`<select class="form-control accounts-select"></select>`);
        $(this).closest('div').remove();
 
-       dataToSelect(JSON.parse(localStorage.accounts), 'accounts-select', 'id','identifier', 'name');
+       store.selectedParentAccount='';
+
+       disableEnable('remove-parent', store)
+
+       filterParentAccount(accounts, store);
+
+    });
+
+    $('.save--btn-save').on('click', (ev)=>{
+
+        ev.preventDefault();
+
+        let check = checks(store);
+
+        if(check){
+            save(store);
+        }
+    })
+
+    $( ".account-filter" ).on('keyup',function(ev) {
+
+
+        if(ev.keyCode == 13) {
+          ev.preventDefault();
+          return false;
+        }
+
+        let text = $( ".account-filter" ).val().toUpperCase();
+        let filteredAccounts = accounts.filter((obj)=>{
+
+            return obj.name.toUpperCase().includes(text);
+
+        })
+
+        drawTable(filteredAccounts);
+
+        filteredAccounts =[];
 
     });
 

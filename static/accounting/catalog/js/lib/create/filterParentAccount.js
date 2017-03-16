@@ -7,8 +7,6 @@ export function filterParentAccount(accounts, store){
 
     if(store.selectedLevel.level == 0){
 
-        console.log('level 0');
-
         disableEnable('no-parent', store);
 
         let $codeField = $('.code-div :input');
