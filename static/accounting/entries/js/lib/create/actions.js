@@ -6,9 +6,11 @@ import $ from 'jquery';
 import 'select2';
 
 import{addNewRow} from './rows'
+import{removeRow} from './rows'
 import {currenciesToSelect} from './currencies';
 import {refreshCurrencySymbol} from './currencies';
 import {accountsToSelect} from './accounts';
+import {save} from './save';
 
 let data = []
 
@@ -39,8 +41,10 @@ export function actions(){
     $table.on("select2:select",".account-cell", function (e) {
 
         let text = e.params.data.text
+        let id = e.params.data.id
         $(this).closest('td').prepend(`<div class="account-text">
                                         <span class="account-text-span">${text}</span>
+                                        <span hidden class="account-id-span">${id}</span>
                                         <span class="glyphicon glyphicon-remove-circle remove-item" aria-hidden="true"></span>
                                       </div>`);
 
@@ -60,6 +64,8 @@ export function actions(){
 
     $table.on('click', '.remove-row', function(e){
         removeRow(this);
+        data = scanTable($table);
+        updateTotals(data);
     });
 
     $table.on("click",".remove-item", function () {
@@ -85,9 +91,24 @@ export function actions(){
         data = scanTable($table);
         updateTotals(data);
     });
+
+
+    $('.save--btn-save').on('click', function(ev){
+        ev.preventDefault();
+
+        alertify.confirm('Confirmar Datos', 'Desea Guardar el Asiento?',
+        function(){
+            save();
+        },
+        function(){
+
+        });
+
+
+    });
 }
 
-function scanTable($table){
+export function scanTable($table){
 
     data = [];
 
@@ -101,10 +122,11 @@ function scanTable($table){
         let documentText = $($rows[i]).find('.document-cell input').val();
         let debe = $($rows[i]).find('.debe-cell input').val();
         let haber = $($rows[i]).find('.haber-cell input').val();
+        let id = $($rows[i]).find('.account-id-span').html();
 
         if(debe != 0 || haber != 0){
 
-            data.push([accountText, detail, documentText, debe, haber]);
+            data.push([accountText, detail, documentText, debe, haber, id]);
 
         }
 
@@ -115,13 +137,15 @@ function scanTable($table){
 
 }
 
-function updateTotals(data){
+export function updateTotals(data){
 
 
 
     let totalDebe = 0;
     let totalHaber = 0;
     let diferrence = 0;
+
+
 
     $.each(data, function (i) {
 
@@ -131,8 +155,16 @@ function updateTotals(data){
 
     diferrence = totalDebe - totalHaber;
 
+    let totals = {
+        'totalDebe':totalDebe,
+        'totalHaber':totalHaber,
+        'diferrence':diferrence
+    }
+
     $('.total-debe-val').html(totalDebe);
     $('.total-haber-val').html(totalHaber);
     $('.total-difference-val').html(diferrence);
+
+    return totals
 
 }

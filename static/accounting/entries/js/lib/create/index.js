@@ -19,6 +19,9 @@ $.ajaxSetup({
             if(settings.type == "PATCH"){
                 xhr.setRequestHeader("X-CSRFToken", $('[name="csrfmiddlewaretoken"]').val());
             }
+            if(settings.type == "DELETE"){
+                xhr.setRequestHeader("X-CSRFToken", $('[name="csrfmiddlewaretoken"]').val());
+            }
         }
     });//ajax setup
 

@@ -4,3 +4,4 @@ from __future__ import unicode_literals
 
 from .admins.catalog import *
 from .admins.entries import *
+from .admins.reports import *

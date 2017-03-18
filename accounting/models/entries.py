@@ -8,12 +8,11 @@ from .catalog import Account
 
 class Entry(models.Model):
 
-    company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
+    company = models.ForeignKey(Company, verbose_name='Empresa')
     date = models.DateField(verbose_name='Fecha')
-    entyDate = models.DateField(verbose_name='Fecha del asiento', null=True)
-    detail = models.CharField(max_length=255, verbose_name='Detalle')
-    totalDebit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Total Debe')
-    totalCredit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Total Haber')
+    entryDate = models.DateField(verbose_name='Fecha del asiento', null=True)
+    totalDebe = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Total Debe')
+    totalHaber = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Total Haber')
     difference = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Diferencia')
 
     def __unicode__(self):
@@ -27,11 +26,13 @@ class Entry(models.Model):
 
 class EntryDetail(models.Model):
 
-    company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
     entry = models.ForeignKey('Entry', verbose_name='Asiento')
     account = models.ForeignKey(Account, verbose_name='Cuenta')
-    debit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Debe')
-    credit = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Haber')
+    detail = models.CharField(max_length=255, verbose_name='Detalle', blank=True, null=True)
+    document = models.CharField(max_length=255, verbose_name='Docuento', blank=True, null=True)
+    debe = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Debe')
+    haber = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Haber')
 
     def __unicode__(self):
         return 'Detalle de asiento %s' % self.entry.id

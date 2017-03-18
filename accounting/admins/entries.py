@@ -8,9 +8,9 @@ from ..models.entries import Entry, EntryDetail
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'date', 'entyDate', 'totalDebit', 'totalCredit', 'difference')
+    list_display = ('id', 'date', 'entryDate', 'totalDebe', 'totalHaber', 'difference')
 
-    search_fields = ('id', 'date', 'entyDate', 'totalDebit', 'totalCredit', 'difference')
+    search_fields = ('id', 'date', 'entryDate', 'totalDebe', 'totalHaber', 'difference')
 
     def save_model(self, request, obj, form, change):
         obj.company = request.user.profile.company
@@ -27,9 +27,9 @@ class EntryAdmin(admin.ModelAdmin):
 @admin.register(EntryDetail)
 class EntryDetailAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'entry', 'account', 'debit', 'credit')
+    list_display = ('id', 'entry', 'account', 'debe', 'haber')
 
-    search_fields = ('id', 'entry', 'account', 'debit', 'credit')
+    search_fields = ('id', 'entry', 'account', 'debe', 'haber')
 
     def save_model(self, request, obj, form, change):
         obj.company = request.user.profile.company
