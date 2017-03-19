@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+_^umb&*n#&$_nw03d)2lna!+v)##4z_lf8^5u8bl6cgw9*+(h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['35.165.154.94', ]
 
@@ -171,14 +171,16 @@ LOGIN_URL = '/admin/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+        ]
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+    STATIC_URL = '/static/'
+    STATIC_ROOT = ''
 
-STATIC_URL = '/static/'
-#STATIC_ROOT = ''
-STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
+if not DEBUG:
+    STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = ''
