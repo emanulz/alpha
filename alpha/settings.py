@@ -180,6 +180,7 @@ if DEBUG:
     STATIC_ROOT = ''
 
 if not DEBUG:
+    STATIC_URL = '/static/'
     STATIC_ROOT = (os.path.join(BASE_DIR, 'static'))
 
 MEDIA_URL = '/media/'
