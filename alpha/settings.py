@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+_^umb&*n#&$_nw03d)2lna!+v)##4z_lf8^5u8bl6cgw9*+(h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['35.165.154.94', ]
+ADMINS = [('Emanuel', 'emanuelziga@gmail.com')]
+
+
+ALLOWED_HOSTS = ['35.165.154.94', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -90,19 +93,34 @@ TEMPLATES = [
     },
 ]
 
+if DEBUG:
+    WSGI_APPLICATION = 'alpha.wsgi.application'
 
-WSGI_APPLICATION = 'alpha.wsgi.application'
-
+if not DEBUG:
+    WSGI_APPLICATION = 'alpha.wsgi-prod.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'static/db.sqlite3'),
-    }
-}
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
+        }
+
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'fudesemillas',
+            'USER': 'emanuelziga',
+            'PASSWORD': 'emma101421',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+            }
+        }
 
 JET_SIDE_MENU_COMPACT = False
 
