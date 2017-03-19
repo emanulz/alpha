@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'livereload',
+    #'livereload',
     'widget_tweaks',
     'rest_framework',
     # 'accounting.accounts',
