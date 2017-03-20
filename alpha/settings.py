@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+_^umb&*n#&$_nw03d)2lna!+v)##4z_lf8^5u8bl6cgw9*+(h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ADMINS = [('Emanuel', 'emanuelziga@gmail.com')]
+ADMINS = [('Emanuel Zuniga', 'emanuelziga@gmail.com'), ]
 
 
 ALLOWED_HOSTS = ['35.165.154.94', '127.0.0.1', 'localhost', 'app.fudesemillas.net', ]
