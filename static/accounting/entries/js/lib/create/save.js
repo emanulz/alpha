@@ -96,6 +96,8 @@ function saveDetails(data, entry){
     let company = $('#id_company').val();
     let entryId = entry.id;
     let urlDetails = '/accounting/api/entrydetails/'
+    let $general = $('.general-block');
+    let $date = $general.find('.date');
 
     let promises = data.map((item)=>{
 
@@ -105,6 +107,7 @@ function saveDetails(data, entry){
             "account": item[5],
             "debe": item[3],
             "haber": item[4],
+            "date": $date.val(),
             "detail": item[1],
             "document": item[2]
         });

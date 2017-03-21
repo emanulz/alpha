@@ -29,7 +29,7 @@ class EntryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EntryDetail
-        fields = ('id', 'company', 'entry', 'account', 'debe', 'haber', 'detail', 'document',)
+        fields = ('id', 'company', 'entry', 'date', 'account', 'debe', 'haber', 'detail', 'document',)
 
 
 class EntryDetailViewSet(viewsets.ModelViewSet):

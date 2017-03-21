@@ -1,0 +1,71 @@
+|{% extends "layout/base_layout.html" %}
+
+| {% load i18n static %}
+| {% load widget_tweaks %}
+
+{% block title %}
+
+|   {% if form.code.value %}
+|       <title>{{form.code.value}}</title>
+
+|   {% else %}
+
+|       <title>Crear Asiento</title>
+
+|   {% endif %}
+
+{% endblock %}
+
+
+{% block breadcrumbs %}
+|   <div class="breadcrumbs col-xs-12" style="height: 40px;">
+|   <a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <a href="/admin/accounting/entry">Asientos</a>
+
+{% if form.code.value %}
+
+|   &rsaquo; &nbsp;  <span class='current-text'>{{form.code.value}}</span>
+
+{% else %}
+
+|   &rsaquo; &nbsp;  <span class='current-text'>Agregar</span>
+
+{% endif %}
+
+|   <div id="user-tools" class="pull-right" style="margin-right: 50px;">
+|       {% block welcome-msg %}
+|       {% trans 'Welcome,' %}
+|       <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+|       {% endblock %}
+|       {% block userlinks %}
+|       {% if user.has_usable_password %}
+|       <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+|       {% endif %}
+|       <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+|       {% endblock %}
+|       </div>
+|   </div>
+
+{% endblock %}
+
+{% block content %}
+
+|{% csrf_token %}
+
+.app-container-div
+
+    h1 {{header}}
+    h1 {{dateini}}
+    h1 {{dateend}}
+
+    |{% for result in results %}
+
+    h1 {{result.account.level_num}}
+
+    |{% endfor %}
+
+| {% endblock %}
+
+
+| {% block js %}
+
+| {% endblock %}

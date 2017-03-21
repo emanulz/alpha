@@ -56,7 +56,7 @@ class AccountLevel(models.Model):
     company = models.ForeignKey(Company, verbose_name='Empresa', editable=False)
     name = models.CharField(max_length=255, verbose_name='Nombre')
     level = models.PositiveIntegerField(verbose_name='Nivel de cuenta')
-    identifierDigits = models.PositiveIntegerField(default=1)
+    identifierDigits = models.PositiveIntegerField(default=1, verbose_name='Digitos de indentificador')
 
     def __unicode__(self):
         return '%s' % self.name

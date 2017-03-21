@@ -30,6 +30,7 @@ class EntryDetail(models.Model):
     entry = models.ForeignKey('Entry', verbose_name='Asiento')
     account = models.ForeignKey(Account, verbose_name='Cuenta')
     detail = models.CharField(max_length=255, verbose_name='Detalle', blank=True, null=True)
+    date = models.DateField(verbose_name='Fecha', null=True)
     document = models.CharField(max_length=255, verbose_name='Docuento', blank=True, null=True)
     debe = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Debe')
     haber = models.DecimalField(max_digits=11, decimal_places=2, verbose_name='Haber')

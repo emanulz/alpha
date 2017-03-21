@@ -27,9 +27,9 @@ class EntryAdmin(admin.ModelAdmin):
 @admin.register(EntryDetail)
 class EntryDetailAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'entry', 'account', 'debe', 'haber')
+    list_display = ('id', 'date', 'entry', 'account', 'debe', 'haber')
 
-    search_fields = ('id', 'entry', 'account', 'debe', 'haber')
+    search_fields = ('id', 'date', 'entry', 'account', 'debe', 'haber')
 
     def save_model(self, request, obj, form, change):
         obj.company = request.user.profile.company

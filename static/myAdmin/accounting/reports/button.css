@@ -1,0 +1,27 @@
+.date{
+    position: relative;
+    height: 50px;
+    width: 50%;
+    font-size: 15px;
+    font-family: Arial,sans-serif;
+    margin: 10px 0;
+    margin-left: 25%;
+    padding-left: 10px;
+}
+
+.report-btn{
+
+    height: 50px;
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    font-size: 14px !important;
+
+}
+
+.date-label{
+    margin-left: 25%;
+    font-size: 17px;
+    margin-top: 10px;
+}

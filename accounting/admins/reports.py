@@ -9,7 +9,7 @@ from ..models.reports import Report
 class ReportAdmin(admin.ModelAdmin):
 
     def buttonGenerate(self, obj):
-        return '<input type="button" class="buttonGenerate" value="Generar">'
+        return '<input id="%s" type="button" class="buttonGenerate" value="Generar">' % (obj.id)
 
     buttonGenerate.short_description = 'generar'
     buttonGenerate.allow_tags = True
@@ -19,8 +19,15 @@ class ReportAdmin(admin.ModelAdmin):
     search_fields = ('name', 'header', 'template')
 
     class Media:
+        css = {
+            'all': ("../static/vendor/iziModal/css/iziModal.min.css",
+                    "../static/myAdmin/accounting/reports/button.css", )
+            }
 
-        js = ("../static/myAdmin/accounting/reports/button.js",)
+        js = ("../static/myAdmin/accounting/reports/jquery.min.js",
+              "../static/vendor/iziModal/js/iziModal.min.js",
+              "../static/myAdmin/accounting/reports/button.js",
+              )
 
     def save_model(self, request, obj, form, change):
         obj.company = request.user.profile.company
