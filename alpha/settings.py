@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+_^umb&*n#&$_nw03d)2lna!+v)##4z_lf8^5u8bl6cgw9*+(h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ADMINS = [('Emanuel Zuniga', 'emanuelziga@gmail.com'), ]
 
@@ -45,13 +45,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'rest_framework',
     'django.contrib.humanize',
-    # 'accounting.accounts',
-    # 'accounting.buyBills',
-    # 'accounting.entries',
-    # 'accounting.fiscalPeriods',
-    # 'accounting.saleBills',
-    # 'common.clients',
-    # 'common.companies',
     'accounting.apps.AccountingConfig',
     'general.apps.GeneralConfig',
     'sales.apps.SalesConfig',
@@ -142,9 +135,8 @@ JET_SIDE_MENU_CUSTOM_APPS = [
         ]),
     ('accounting', [
         'Entry',
-        'EntryDetail',
-        'Catalog',
         'Account',
+        'Report',
         ]),
 
         ]
