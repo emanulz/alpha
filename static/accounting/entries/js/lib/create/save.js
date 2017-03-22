@@ -21,29 +21,35 @@ export function save(){
     let totals = updateTotals(data);
     let company = $('#id_company').val();
 
-    //entry data
-    let entryData = JSON.stringify({
-        "company": company,
-        "date": today(),
-        "entryDate": $date.val(),
-        "totalDebe": totals.totalDebe,
-        "totalHaber": totals.totalHaber,
-        "difference": totals.diferrence
-    });
+    if (totals.diferrence == 0){
+        //entry data
+        let entryData = JSON.stringify({
+            "company": company,
+            "date": today(),
+            "entryDate": $date.val(),
+            "totalDebe": totals.totalDebe,
+            "totalHaber": totals.totalHaber,
+            "difference": totals.diferrence
+        });
 
-    //promise objects
-    let saveEntryPromise = saveApi(entryData, '/accounting/api/entries/')
+        //promise objects
+        let saveEntryPromise = saveApi(entryData, '/accounting/api/entries/')
 
-    saveEntryPromise.then((entry)=>{
-        //console.log(entry);
-        saveDetails(data, entry)
-        //alertify.alert('Correcto',`Asiento # ${data.id} creado correctamente.`);
-    })
-    .catch((err)=>{
-        alertify.alert('Error',`Error al crear el asiento, por favor intente de nuevo,(LOG: ${err})`);
-    })
+        saveEntryPromise.then((entry)=>{
+            //console.log(entry);
+            saveDetails(data, entry)
+            //alertify.alert('Correcto',`Asiento # ${data.id} creado correctamente.`);
+        })
+        .catch((err)=>{
+            alertify.alert('Error',`Error al crear el asiento, por favor intente de nuevo,(LOG: ${err})`);
+        })
+
+    }
+
+    else{
+        alertify.alert('Error',`El asiento no está balanceado, la diferencia debe ser 0`);
+    }
 }
-
 
 function saveApi(data, apiUrl){
 

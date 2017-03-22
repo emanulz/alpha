@@ -50,10 +50,8 @@ export function loadData(){
     //Initial Draws after promise resolve
     loadAccounts.then((accounts)=>{
 
-        if(accounts){
 
-            drawTable(accounts);
-        }
+        drawTable(accounts);
 
 
         loadAccountLevels.then((accountLevels)=>{

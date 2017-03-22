@@ -10,9 +10,13 @@ class Report(models.Model):
 
     tmp1 = 'tmp1'
     tmp2 = 'tmp2'
+    tmp3 = 'tmp3'
+    tmp4 = 'tmp4'
 
     TEMPLATE_CHOICES = ((tmp1, 'Asiento de Diario'),
                         (tmp2, 'Balance General'),
+                        (tmp3, 'Estado de Resultados'),
+                        (tmp2, 'Pérdidas y Ganancias'),
                         )
 
     company = models.ForeignKey(Company, verbose_name='Empresa')
