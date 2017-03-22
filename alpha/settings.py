@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'livereload',
     'widget_tweaks',
     'rest_framework',
+    'django.contrib.humanize',
     # 'accounting.accounts',
     # 'accounting.buyBills',
     # 'accounting.entries',

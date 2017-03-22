@@ -1,0 +1,89 @@
+.report-header{
+    text-align: center;
+    border: 1px solid black;
+    padding-bottom: 10px;
+}
+
+.report-header h5{
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+
+.report-table table{
+
+    font-size: 13px;
+
+}
+
+.report-table tfoot{
+
+    font-size: 15px;
+    font-weight: bold;
+    padding: 2px;
+
+}
+
+.report-table tfoot tr td{
+
+    padding: 4px 8px;
+    border: 1px solid black;
+    border-right: 0;
+
+
+}
+
+.report-table tfoot tr :last-child{
+
+border-right: 1px solid black;
+
+
+}
+
+.report-table tbody tr td{
+
+    padding: 4px 8px;
+    border: 1px solid black;
+    border-bottom: 0;
+    border-right: 0;
+
+
+}
+
+.report-table tbody tr :last-child{
+
+border-right: 1px solid black;
+
+
+}
+
+.report-table tbody{
+
+
+
+}
+
+
+.report-table thead tr th{
+
+    padding: 4px 8px;
+    border: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 0;
+    border-right: 0;
+
+}
+
+.report-table thead tr :last-child{
+
+    border-right: 1px solid black;
+}
+
+
+
+[canvas=container] {
+    height: -webkit-calc( 100% - 100px );
+    height: -moz-calc( 100% - 100px );
+    height: calc( 100% - 100px );
+    margin-top: 100px;
+}

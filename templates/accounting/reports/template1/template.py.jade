@@ -2,24 +2,23 @@
 
 | {% load i18n static %}
 | {% load widget_tweaks %}
+|{% load humanize %}
 
 {% block title %}
 
-|   {% if form.code.value %}
-|       <title>{{form.code.value}}</title>
-
-|   {% else %}
-
-|       <title>Crear Asiento</title>
-
-|   {% endif %}
+|<title>Reporte</title>
 
 {% endblock %}
 
+{% block extrastyle %}{
+
+<link rel="stylesheet" type="text/css" href="{% static "accounting/reports/css/index.css" %}" />
+
+{% endblock %}
 
 {% block breadcrumbs %}
 |   <div class="breadcrumbs col-xs-12" style="height: 40px;">
-|   <a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <a href="/admin/accounting/entry">Asientos</a>
+|   <a href="/">Inicio</a> &nbsp;  &rsaquo; &nbsp;  <a href="/admin/accounting/">Contabiliadad</a>
 
 {% if form.code.value %}
 
@@ -27,7 +26,7 @@
 
 {% else %}
 
-|   &rsaquo; &nbsp;  <span class='current-text'>Agregar</span>
+|   &rsaquo; &nbsp;  <span class='current-text'>Reportes</span>
 
 {% endif %}
 
@@ -52,20 +51,40 @@
 |{% csrf_token %}
 
 .app-container-div
+    .col-xs-12.col-md-10.col-md-offset-1.report-table
+        .report-header
+            h5.center-text {{company.commercial_name}}
+            h5.center-text {{header}}
+            h5.center-text Desde el {{dateini| date:"SHORT_DATE_FORMAT"}} hasta el {{dateend| date:"SHORT_DATE_FORMAT"}}
 
-    h1 {{header}}
-    h1 {{dateini}}
-    h1 {{dateend}}
+        table.table
+            thead: tr
+                th CODIGO
+                th DESCRIPCION
+                th DEBE
+                th HABER
+                th DIFERENCIA
+            tfoot: tr
+                td
+                td Sumas Iguales
+                td {{debe | floatformat:"2"|intcomma}}
+                td {{haber | floatformat:"2"|intcomma}}
+                td {{difference | floatformat:"2"|intcomma}}
+            tbody
+                {% for result in results %}
+                tr
+                    td {{result.code}}
+                    td {{result.account.name}}
+                    td {{result.debe | floatformat:"2"|intcomma}}
+                    td {{result.haber | floatformat:"2"|intcomma}}
+                    td {{result.difference | floatformat:"2"|intcomma}}
 
-    |{% for result in results %}
+                {% endfor %}
 
-    h1 {{result.account.level_num}}
-
-    |{% endfor %}
 
 | {% endblock %}
 
 
 | {% block js %}
-
+| <script src="{% static 'public/js/report.js' %}"></script>
 | {% endblock %}

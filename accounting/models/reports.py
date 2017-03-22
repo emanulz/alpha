@@ -11,8 +11,8 @@ class Report(models.Model):
     tmp1 = 'tmp1'
     tmp2 = 'tmp2'
 
-    TEMPLATE_CHOICES = ((tmp1, 'Plantilla 1'),
-                        (tmp2, 'Plantilla 2'),
+    TEMPLATE_CHOICES = ((tmp1, 'Asiento de Diario'),
+                        (tmp2, 'Balance General'),
                         )
 
     company = models.ForeignKey(Company, verbose_name='Empresa')

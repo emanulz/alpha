@@ -2,26 +2,26 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from ..models.catalog import Catalog, Account, AccountLevel
+from ..models.catalog import Account, AccountLevel
 
 
-@admin.register(Catalog)
-class CatalogAdmin(admin.ModelAdmin):
-
-    list_display = ('name',)
-
-    search_fields = ('name',)
-
-    def save_model(self, request, obj, form, change):
-        obj.company = request.user.profile.company
-        super(AccountAdmin, self).save_model(request, obj, form, change)
-
-    def get_queryset(self, request):
-
-        qs = super(CatalogAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(company=request.user.profile.company_id)
+# @admin.register(Catalog)
+# class CatalogAdmin(admin.ModelAdmin):
+#
+#     list_display = ('name',)
+#
+#     search_fields = ('name',)
+#
+#     def save_model(self, request, obj, form, change):
+#         obj.company = request.user.profile.company
+#         super(AccountAdmin, self).save_model(request, obj, form, change)
+#
+#     def get_queryset(self, request):
+#
+#         qs = super(CatalogAdmin, self).get_queryset(request)
+#         if request.user.is_superuser:
+#             return qs
+#         return qs.filter(company=request.user.profile.company_id)
 
 
 @admin.register(Account)
