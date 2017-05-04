@@ -13,7 +13,7 @@ export function filterLevel(accounts, accountlevels){
     });
 
 
-    let maxLevel =  ((accounts.lenght) ? sortedAccounts[0].level_num+1 : 0);
+    let maxLevel =  ((accounts.length) ? sortedAccounts[0].level_num+1 : 0);
 
     let filteredLevels = accountlevels.filter(function( obj ) {
     return obj.level <= maxLevel;
